@@ -1,0 +1,20 @@
+.stack-holder {
+}
+.post-title {
+    width: 100%;
+    padding: 5;
+}
+.event-date {
+    padding: 5;
+    color: #666;
+}
+.event-item {
+}
+.hr2 {
+    height: 2;
+    background-color: #333;
+}
+.view-article {
+    color: #993c33;
+    padding: 5;
+}

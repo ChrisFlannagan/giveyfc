@@ -1,0 +1,20 @@
+<Page xmlns="http://schemas.nativescript.org/tns.xsd" loaded="loaded">
+    <StackLayout>
+        <GridLayout rows="80,*,160">
+            <Image src="~/imgs/logo.jpg" row="0" />
+            <ListView row="1" height="80%" items="{{ postList }}" backgroundImage="~/imgs/bg.jpg">
+                <ListView.itemTemplate>
+                    <StackLayout class="stack-holder" id="{{ thelink }}" tap="goLink">
+                        <Label class="post-title" id="{{ labelID }}" text="{{ postName }}" textWrap="true" horizontalAlignment="left" />
+                        <Label class="view-article" text="View Article" />
+                        <Label class="hr2" />
+                    </StackLayout>
+                </ListView.itemTemplate>
+            </ListView>
+            <StackLayout row="3">
+                <Button class="big-yellow-btns" text="Events" tap="goEvent" />
+                <Button class="big-yellow-btns" text="Donate" tap="goDonate" />
+            </StackLayout>
+        </GridLayout>
+    </StackLayout>
+</Page>

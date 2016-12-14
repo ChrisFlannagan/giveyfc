@@ -1,0 +1,16 @@
+<Page xmlns="http://schemas.nativescript.org/tns.xsd" loaded="loaded">
+  <GridLayout rows="80,*,80">
+  <Image src="~/imgs/logo.jpg" row="0" />
+    <StackLayout row="1">
+      <Label text="Your First Name" />
+      <TextView id="user-name" text="{{ firstName }}" />
+      <Label text="Your Last Name" />
+      <TextView id="user-name" text="{{ lastName }}" />
+      <Label text="Your Email" />
+      <TextView id="user-email" text="{{ userEmail }}" />
+      <Label text="Security PIN (4 digits)" />
+      <TextView id="user-pin" text="{{ userPin }}" />
+    </StackLayout>
+  <Button row="2" class="big-yellow-btns" text="Create Profile" tap="saveUser" />
+  </GridLayout>
+</Page>

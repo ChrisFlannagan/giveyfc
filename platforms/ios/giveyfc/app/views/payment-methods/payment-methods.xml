@@ -1,0 +1,19 @@
+<Page xmlns="http://schemas.nativescript.org/tns.xsd" loaded="loaded">
+    <StackLayout>
+        <Button text="Add Credit Card" horizontalAlignment="center" tap="addCard" />
+        <StackLayout visibility="{{ showCard ? 'visible' : 'collapsed' }}">
+            <TextView id="card-number" text="{{ ccNum }}" hint="Card Number" />
+            <Button id="save-card" text="Save Card" tap="saveCard" />
+        </StackLayout>
+        <Button text="Add PayPal Login" horizontalAlignment="center" />
+        <ListView height="80%" items="{{ postList }}">
+            <ListView.itemTemplate>
+                <GridLayout columns="*,70">
+                    <Label col="0" class="post-title" text="{{ postName }}" textWrap="true" horizontalAlignment="left" />
+                    <Button col="1" width="70" horizontalAlignment="right" text="remove" tap="removeCard" />
+                </GridLayout>
+            </ListView.itemTemplate>
+        </ListView>
+        <Button text="Remove All" horizontalAlignment="center" tap="clearAll" />
+    </StackLayout>
+</Page>
