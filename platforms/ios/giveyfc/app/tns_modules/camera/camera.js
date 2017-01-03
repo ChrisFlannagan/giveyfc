@@ -59,6 +59,9 @@ var UIImagePickerControllerDelegateImpl = (function (_super) {
         listener = null;
     };
     UIImagePickerControllerDelegateImpl.ObjCProtocols = [UIImagePickerControllerDelegate];
+    UIImagePickerControllerDelegateImpl = __decorate([
+        Deprecated
+    ], UIImagePickerControllerDelegateImpl);
     return UIImagePickerControllerDelegateImpl;
 }(NSObject));
 var listener;

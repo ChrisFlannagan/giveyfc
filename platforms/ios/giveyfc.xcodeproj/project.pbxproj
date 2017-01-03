@@ -9,11 +9,13 @@
 		858B842D18CA22B800AB12DE /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 858B833A18CA111C00AB12DE /* InfoPlist.strings */; };
 		CD45EE7C18DC2D5800FB50C0 /* app in Resources */ = {isa = PBXBuildFile; fileRef = CD45EE7A18DC2D5800FB50C0 /* app */; };
 		CD62955D1BB2678900AE3A93 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = CD62955C1BB2678900AE3A93 /* main.m */; };
-		4715F1BB5934418986732B2F /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C443E0C7E5B64B669FE157CB /* Assets.xcassets */; };
-		12014E185BE04E5CBD427418 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = CECD4FD0CDF6403CBC8657E1 /* LaunchScreen.storyboard */; };
-		09C918EB56904EC68A59ABAE /* build.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = 42D8D4832AD74538BD4E1954 /* build.xcconfig */; };
-		D74CF42C127B481EA4413479 /* TNSWidgets.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7B12CCE96A0E41728A9A54C6 /* TNSWidgets.framework */; };
-		36F9D4F474924149A95BE6A1 /* TNSWidgets.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 7B12CCE96A0E41728A9A54C6 /* TNSWidgets.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		8B3511417025493692D375E4 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 4370163C2ED54AB0BC814BB5 /* Assets.xcassets */; };
+		43B7AC70EC1E49EBA71C7769 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 99A3EF3C50B54C59AE6C55C8 /* LaunchScreen.storyboard */; };
+		C883D3679F744BB5BA68F2B2 /* build.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = D1E7DBCE1BF848E49F03B2E3 /* build.xcconfig */; };
+		2414A7E6277D46E5A41237CC /* TNSWidgets.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 654D5477D348492F8CDD9D3E /* TNSWidgets.framework */; };
+		6BDB5E840BF24C95B26ABD98 /* TNSWidgets.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 654D5477D348492F8CDD9D3E /* TNSWidgets.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		58B16C380D674259AC2E843D /* LocalNotificationsPlugin.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AB0CAD872DC44929A9BE858C /* LocalNotificationsPlugin.framework */; };
+		80FC56BF32C34208A57A767B /* LocalNotificationsPlugin.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = AB0CAD872DC44929A9BE858C /* LocalNotificationsPlugin.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -23,7 +25,8 @@
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
-				36F9D4F474924149A95BE6A1 /* TNSWidgets.framework in Embed Frameworks */,
+				6BDB5E840BF24C95B26ABD98 /* TNSWidgets.framework in Embed Frameworks */,
+				80FC56BF32C34208A57A767B /* LocalNotificationsPlugin.framework in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -41,10 +44,11 @@
 		CDD59A261BB43B5D00EC2671 /* build-debug.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = "build-debug.xcconfig"; sourceTree = "<group>"; };
 		CDD59A271BB43B5D00EC2671 /* build-release.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = "build-release.xcconfig"; sourceTree = "<group>"; };
 		CDF4743E1BA4855C0087EA85 /* build.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = build.xcconfig; sourceTree = "<group>"; };
-		C443E0C7E5B64B669FE157CB /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = unknown; name = Assets.xcassets; path = "giveyfc/Resources/Assets.xcassets"; sourceTree = "<group>"; fileEncoding = 4; };
-		CECD4FD0CDF6403CBC8657E1 /* LaunchScreen.storyboard */ = {isa = PBXFileReference; lastKnownFileType = unknown; name = LaunchScreen.storyboard; path = "giveyfc/Resources/LaunchScreen.storyboard"; sourceTree = "<group>"; fileEncoding = 4; };
-		42D8D4832AD74538BD4E1954 /* build.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = unknown; name = build.xcconfig; path = "giveyfc/Resources/build.xcconfig"; sourceTree = "<group>"; fileEncoding = 4; };
-		7B12CCE96A0E41728A9A54C6 /* TNSWidgets.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = TNSWidgets.framework; path = "../../lib/iOS/TNSWidgets.framework"; sourceTree = "<group>"; };
+		4370163C2ED54AB0BC814BB5 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = unknown; name = Assets.xcassets; path = "giveyfc/Resources/Assets.xcassets"; sourceTree = "<group>"; fileEncoding = 4; };
+		99A3EF3C50B54C59AE6C55C8 /* LaunchScreen.storyboard */ = {isa = PBXFileReference; lastKnownFileType = unknown; name = LaunchScreen.storyboard; path = "giveyfc/Resources/LaunchScreen.storyboard"; sourceTree = "<group>"; fileEncoding = 4; };
+		D1E7DBCE1BF848E49F03B2E3 /* build.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = unknown; name = build.xcconfig; path = "giveyfc/Resources/build.xcconfig"; sourceTree = "<group>"; fileEncoding = 4; };
+		654D5477D348492F8CDD9D3E /* TNSWidgets.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = TNSWidgets.framework; path = "../../lib/iOS/TNSWidgets.framework"; sourceTree = "<group>"; };
+		AB0CAD872DC44929A9BE858C /* LocalNotificationsPlugin.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = LocalNotificationsPlugin.framework; path = "../../lib/iOS/LocalNotificationsPlugin.framework"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -52,7 +56,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				D74CF42C127B481EA4413479 /* TNSWidgets.framework in Frameworks */,
+				2414A7E6277D46E5A41237CC /* TNSWidgets.framework in Frameworks */,
+				58B16C380D674259AC2E843D /* LocalNotificationsPlugin.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -81,7 +86,8 @@
 		858B833018CA111C00AB12DE /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				7B12CCE96A0E41728A9A54C6 /* TNSWidgets.framework */,
+				654D5477D348492F8CDD9D3E /* TNSWidgets.framework */,
+				AB0CAD872DC44929A9BE858C /* LocalNotificationsPlugin.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -112,9 +118,9 @@
 		E070579D1B39A9D000214BF1 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
-				C443E0C7E5B64B669FE157CB /* Assets.xcassets */,
-				CECD4FD0CDF6403CBC8657E1 /* LaunchScreen.storyboard */,
-				42D8D4832AD74538BD4E1954 /* build.xcconfig */,
+				4370163C2ED54AB0BC814BB5 /* Assets.xcassets */,
+				99A3EF3C50B54C59AE6C55C8 /* LaunchScreen.storyboard */,
+				D1E7DBCE1BF848E49F03B2E3 /* build.xcconfig */,
 			);
 			name = Resources;
 			sourceTree = "<group>";
@@ -177,9 +183,9 @@
 			files = (
 				CD45EE7C18DC2D5800FB50C0 /* app in Resources */,
 				858B842D18CA22B800AB12DE /* InfoPlist.strings in Resources */,
-				4715F1BB5934418986732B2F /* Assets.xcassets in Resources */,
-				12014E185BE04E5CBD427418 /* LaunchScreen.storyboard in Resources */,
-				09C918EB56904EC68A59ABAE /* build.xcconfig in Resources */,
+				8B3511417025493692D375E4 /* Assets.xcassets in Resources */,
+				43B7AC70EC1E49EBA71C7769 /* LaunchScreen.storyboard in Resources */,
+				C883D3679F744BB5BA68F2B2 /* build.xcconfig in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -350,6 +356,7 @@
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"../../lib/iOS\"",
+					"\"../../lib/iOS\"",
 				);
 			};
 			name = Debug;
@@ -371,6 +378,7 @@
 				WRAPPER_EXTENSION = app;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
+					"\"../../lib/iOS\"",
 					"\"../../lib/iOS\"",
 				);
 			};

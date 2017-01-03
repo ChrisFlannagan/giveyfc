@@ -3,6 +3,7 @@ var Observable = require("data/observable").Observable;
 var page;
 var frameModule = require("ui/frame");
 var appSet = require("application-settings");
+var LocalNotifications = require("nativescript-local-notifications");
 
 var utilityModule = require("utils/utils");
 var postTitles;
@@ -37,14 +38,15 @@ function loadLatest() {
                 if ( appSet.getNumber( "event" + post['id'] ) == 1 ) {
                     regImage = "~/imgs/unregister.jpg";
                 }
-                console.log(post['date'].toString());
-                var thed = post['date'].split('T')
+                console.log(post['startdate'].toString());
+                var thed = post['startdate'].split(' ')
                 var theda = thed[0].split('-');
                 var thedat = theda[1] + '/' + theda[2] + '/' + theda[0];
                 var obArray = new Observable();
                 postTitles.push({ postName: post['title']['rendered'],
                     theDate: thedat,
                     thelink: post['link'],
+                    fulldate: post['startdate'],
                     eventID: post['id'],
                     regImg: regImage,
                     regImg2: regImage,
@@ -70,9 +72,36 @@ exports.regIt = function(args) {
     if ( item.regImg == "~/imgs/unregister.jpg" ) {
         item.regImg = "~/imgs/register.jpg";
         appSet.setNumber("event"+item.eventID, 0);
+        LocalNotifications.cancel(item.eventID).then(
+            function(foundAndCanceled) {
+                if (foundAndCanceled) {
+                    console.log("OK, it's gone!");
+                } else {
+                    console.log("No ID 5 was scheduled");
+                }
+            }
+        )
     } else {
         item.regImg = "~/imgs/unregister.jpg";
         appSet.setNumber("event"+item.eventID, 1);
+        console.log("full date: " + item.fulldate);
+        var setdate = new Date(item.fulldate);
+        setdate.setDate(setdate.getDate() - 1);
+
+        LocalNotifications.schedule([{
+            id: item.eventID,
+            title: 'Youth For Christ Event Tomorrow',
+            body: item.postName,
+            at: setdate // 60 seconds * 1000 milliseconds * 60 minutes * 24 hours * 4 days
+        }]).then(
+            function() {
+                console.log("Notification Scheduled");
+            },
+            function(error) {
+                console.log("Error scheduling: " + error);
+            }
+        );
+
     }
     page.getViewById("mainList").refresh();
 };

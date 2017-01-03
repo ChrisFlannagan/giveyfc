@@ -57,16 +57,16 @@ function getAspectSafeDimensions(sourceWidth, sourceHeight, reqWidth, reqHeight)
     };
 }
 exports.getAspectSafeDimensions = getAspectSafeDimensions;
-function getRequestedImageSize(src) {
+function getRequestedImageSize(src, options) {
     var reqWidth = platform.screen.mainScreen.widthDIPs;
     var reqHeight = platform.screen.mainScreen.heightDIPs;
-    if (this.options && this.options.width) {
-        reqWidth = (this.options.width > 0 && this.options.width < reqWidth) ? this.options.width : reqWidth;
+    if (options && options.width) {
+        reqWidth = (options.width > 0 && options.width < reqWidth) ? options.width : reqWidth;
     }
-    if (this.options && this.options.height) {
-        reqWidth = (this.options.height > 0 && this.options.height < reqHeight) ? this.options.height : reqHeight;
+    if (options && options.height) {
+        reqHeight = (options.height > 0 && options.height < reqHeight) ? options.height : reqHeight;
     }
-    if (this.options && this.options.keepAspectRatio) {
+    if (options && options.keepAspectRatio) {
         var safeAspectSize = getAspectSafeDimensions(src.width, src.height, reqWidth, reqHeight);
         reqWidth = safeAspectSize.width;
         reqHeight = safeAspectSize.height;

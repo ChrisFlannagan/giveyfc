@@ -10,7 +10,6 @@ function ensureColor() {
         color = require("color");
     }
 }
-var CELLIDENTIFIER = "cell";
 var ITEMLOADING = common.ListView.itemLoadingEvent;
 var LOADMOREITEMS = common.ListView.loadMoreItemsEvent;
 var ITEMTAP = common.ListView.itemTapEvent;
@@ -57,9 +56,11 @@ var DataSource = (function (_super) {
         return (owner && owner.items) ? owner.items.length : 0;
     };
     DataSource.prototype.tableViewCellForRowAtIndexPath = function (tableView, indexPath) {
-        var cell = (tableView.dequeueReusableCellWithIdentifier(CELLIDENTIFIER) || ListViewCell.new());
         var owner = this._owner.get();
+        var cell;
         if (owner) {
+            var template = owner._getItemTemplate(indexPath.row);
+            cell = (tableView.dequeueReusableCellWithIdentifier(template.key) || ListViewCell.new());
             owner._prepareCell(cell, indexPath);
             var cellView = cell.view;
             if (cellView && cellView.isLayoutRequired) {
@@ -68,6 +69,9 @@ var DataSource = (function (_super) {
                 var cellHeight = rowHeight > 0 ? rowHeight : owner.getHeight(indexPath.row);
                 view.View.layoutChild(owner, cellView, 0, 0, width, cellHeight);
             }
+        }
+        else {
+            cell = ListViewCell.new();
         }
         return cell;
     };
@@ -82,6 +86,7 @@ var UITableViewDelegateImpl = (function (_super) {
     UITableViewDelegateImpl.initWithOwner = function (owner) {
         var delegate = UITableViewDelegateImpl.new();
         delegate._owner = owner;
+        delegate._measureCellMap = new Map();
         return delegate;
     };
     UITableViewDelegateImpl.prototype.tableViewWillDisplayCellForRowAtIndexPath = function (tableView, cell, indexPath) {
@@ -112,10 +117,11 @@ var UITableViewDelegateImpl = (function (_super) {
             height = owner.getHeight(indexPath.row);
         }
         if (utils.ios.MajorVersion < 8 || height === undefined) {
-            var cell = this._measureCell;
+            var template = owner._getItemTemplate(indexPath.row);
+            var cell = this._measureCellMap.get(template.key);
             if (!cell) {
-                this._measureCell = tableView.dequeueReusableCellWithIdentifier(CELLIDENTIFIER) || ListViewCell.new();
-                cell = this._measureCell;
+                cell = tableView.dequeueReusableCellWithIdentifier(template.key) || ListViewCell.new();
+                this._measureCellMap.set(template.key, cell);
             }
             height = owner._prepareCell(cell, indexPath);
         }
@@ -178,7 +184,7 @@ var ListView = (function (_super) {
         this._rowHeight = -1;
         this.widthMeasureSpec = 0;
         this._ios = UITableView.new();
-        this._ios.registerClassForCellReuseIdentifier(ListViewCell.class(), CELLIDENTIFIER);
+        this._ios.registerClassForCellReuseIdentifier(ListViewCell.class(), this._defaultTemplate.key);
         this._ios.autoresizingMask = 0;
         this._ios.estimatedRowHeight = DEFAULT_HEIGHT;
         this._ios.rowHeight = UITableViewAutomaticDimension;
@@ -187,6 +193,17 @@ var ListView = (function (_super) {
         this._heights = new Array();
         this._map = new Map();
     }
+    ListView.prototype._onItemTemplatesPropertyChanged = function (data) {
+        this._itemTemplatesInternal = new Array(this._defaultTemplate);
+        if (data.newValue) {
+            for (var i = 0, length = data.newValue.length; i < length; i++) {
+                var template = data.newValue[i];
+                this._ios.registerClassForCellReuseIdentifier(ListViewCell.class(), template.key);
+            }
+            this._itemTemplatesInternal = this._itemTemplatesInternal.concat(data.newValue);
+        }
+        this.refresh();
+    };
     ListView.prototype.onLoaded = function () {
         _super.prototype.onLoaded.call(this);
         if (this._isDataDirty) {
@@ -288,7 +305,7 @@ var ListView = (function (_super) {
             this._preparingCell = true;
             var view_1 = cell.view;
             if (!view_1) {
-                view_1 = this._getItemTemplateContent(indexPath.row);
+                view_1 = this._getItemTemplate(indexPath.row).createView();
             }
             var args = notifyForItemAtIndex(this, cell, view_1, ITEMLOADING, indexPath);
             view_1 = args.view || this._getDefaultItemContent(indexPath.row);

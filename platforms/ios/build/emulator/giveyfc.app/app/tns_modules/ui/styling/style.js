@@ -928,6 +928,56 @@ var Style = (function (_super) {
         enumerable: true,
         configurable: true
     });
+    Object.defineProperty(Style.prototype, "tabTextColor", {
+        get: function () {
+            return this._getValue(exports.tabTextColorProperty);
+        },
+        set: function (value) {
+            this._setValue(exports.tabTextColorProperty, value);
+        },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(Style.prototype, "tabBackgroundColor", {
+        get: function () {
+            return this._getValue(exports.tabBackgroundColorProperty);
+        },
+        set: function (value) {
+            this._setValue(exports.tabBackgroundColorProperty, value);
+        },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(Style.prototype, "selectedTabTextColor", {
+        get: function () {
+            return this._getValue(exports.selectedTabTextColorProperty);
+        },
+        set: function (value) {
+            this._setValue(exports.selectedTabTextColorProperty, value);
+        },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(Style.prototype, "androidSelectedTabHighlightColor", {
+        get: function () {
+            return this._getValue(exports.androidSelectedTabHighlightColorProperty);
+        },
+        set: function (value) {
+            this._setValue(exports.androidSelectedTabHighlightColorProperty, value);
+        },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(Style.prototype, "selectedBackgroundColor", {
+        get: function () {
+            return this._getValue(exports.selectedBackgroundColorProperty);
+        },
+        set: function (value) {
+            this._setValue(exports.selectedBackgroundColorProperty, value);
+        },
+        enumerable: true,
+        configurable: true
+    });
     Style.prototype._updateTextDecoration = function () {
         if (this._getValue(exports.textDecorationProperty) !== enums.TextDecoration.none) {
             this._applyProperty(exports.textDecorationProperty, this._getValue(exports.textDecorationProperty));
@@ -1100,6 +1150,11 @@ exports.textTransformProperty = new styleProperty.Property("textTransform", "tex
 exports.whiteSpaceProperty = new styleProperty.Property("whiteSpace", "white-space", new dependency_observable_1.PropertyMetadata(undefined, AffectsLayout, undefined, isWhiteSpaceValid), converters.whiteSpaceConverter);
 exports.letterSpacingProperty = new styleProperty.Property("letterSpacing", "letter-spacing", new dependency_observable_1.PropertyMetadata(Number.NaN, AffectsLayout, undefined, isFloatValueValid), converters.floatConverter);
 exports.zIndexProperty = new styleProperty.Property("zIndex", "z-index", new dependency_observable_1.PropertyMetadata(Number.NaN, AffectsLayout, undefined, isFloatValueValid), converters.floatConverter);
+exports.tabTextColorProperty = new styleProperty.Property("tabTextColor", "tab-text-color", new dependency_observable_1.PropertyMetadata(undefined, dependency_observable_1.PropertyMetadataSettings.None, undefined, color_1.Color.isValid, color_1.Color.equals), converters.colorConverter);
+exports.tabBackgroundColorProperty = new styleProperty.Property("tabBackgroundColor", "tab-background-color", new dependency_observable_1.PropertyMetadata(undefined, dependency_observable_1.PropertyMetadataSettings.None, undefined, color_1.Color.isValid, color_1.Color.equals), converters.colorConverter);
+exports.selectedTabTextColorProperty = new styleProperty.Property("selectedTabTextColor", "selected-tab-text-color", new dependency_observable_1.PropertyMetadata(undefined, dependency_observable_1.PropertyMetadataSettings.None, undefined, color_1.Color.isValid, color_1.Color.equals), converters.colorConverter);
+exports.androidSelectedTabHighlightColorProperty = new styleProperty.Property("androidSelectedTabHighlightColor", "android-selected-tab-highlight-color", new dependency_observable_1.PropertyMetadata(undefined, dependency_observable_1.PropertyMetadataSettings.None, undefined, color_1.Color.isValid, color_1.Color.equals), converters.colorConverter);
+exports.selectedBackgroundColorProperty = new styleProperty.Property("selectedBackgroundColor", "selected-background-color", new dependency_observable_1.PropertyMetadata(undefined, dependency_observable_1.PropertyMetadataSettings.None, undefined, color_1.Color.isValid, color_1.Color.equals), converters.colorConverter);
 exports.nativeLayoutParamsProperty = new styleProperty.Property("nativeLayoutParams", "nativeLayoutParams", new dependency_observable_1.PropertyMetadata({
     width: -1,
     widthPercent: -1,
@@ -1200,9 +1255,13 @@ function onTransformChanged(value) {
             case "scale":
             case "scale3d":
                 values = newTransform[transform].split(",");
-                if (values.length === 2 || values.length === 3) {
+                if (values.length >= 2) {
                     array.push({ property: exports.scaleXProperty, value: parseFloat(values[0]) });
                     array.push({ property: exports.scaleYProperty, value: parseFloat(values[1]) });
+                }
+                else if (values.length === 1) {
+                    array.push({ property: exports.scaleXProperty, value: parseFloat(values[0]) });
+                    array.push({ property: exports.scaleYProperty, value: parseFloat(values[0]) });
                 }
                 break;
             case "translateX":
@@ -1214,9 +1273,13 @@ function onTransformChanged(value) {
             case "translate":
             case "translate3d":
                 values = newTransform[transform].split(",");
-                if (values.length === 2 || values.length === 3) {
+                if (values.length >= 2) {
                     array.push({ property: exports.translateXProperty, value: parseFloat(values[0]) });
                     array.push({ property: exports.translateYProperty, value: parseFloat(values[1]) });
+                }
+                else if (values.length === 1) {
+                    array.push({ property: exports.translateXProperty, value: parseFloat(values[0]) });
+                    array.push({ property: exports.translateYProperty, value: parseFloat(values[0]) });
                 }
                 break;
             case "rotate":

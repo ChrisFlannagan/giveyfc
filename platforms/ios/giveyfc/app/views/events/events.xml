@@ -1,8 +1,9 @@
 <Page xmlns="http://schemas.nativescript.org/tns.xsd" loaded="loaded">
     <StackLayout>
-        <GridLayout rows="80,*,80">
+        <GridLayout rows="80,60,*,80">
             <Image src="~/imgs/logo.jpg" row="0" />
-            <ListView id="mainList" row="1" height="100%" items="{{ postList }}">
+            <Label row="1" text="Click the pencil to set reminder" horizontalAlignment="center" color="#333" />
+            <ListView id="mainList" row="2" height="100%" items="{{ postList }}">
                 <ListView.itemTemplate>
                     <StackLayout class="stack-holder">
                         <GridLayout columns="*,40">
@@ -18,7 +19,7 @@
                 </ListView.itemTemplate>
                 <Label class="hr2" />
             </ListView>
-            <StackLayout row="2">
+            <StackLayout row="3">
                 <Button class="big-yellow-btns" text="Donate" tap="goDonate" />
             </StackLayout>
         </GridLayout>

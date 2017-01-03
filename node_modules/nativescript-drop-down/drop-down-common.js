@@ -14,11 +14,6 @@ See the License for the specific language governing permissions and
 limitations under the License.
 ***************************************************************************** */
 "use strict";
-var __extends = (this && this.__extends) || function (d, b) {
-    for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
-    function __() { this.constructor = d; }
-    d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
-};
 var proxy_1 = require("ui/core/proxy");
 var dependency_observable_1 = require("ui/core/dependency-observable");
 var view_1 = require("ui/core/view");
@@ -81,6 +76,8 @@ var DropDown = (function (_super) {
             throw new Error("selectedIndex should be between [0, items.length - 1]");
         }
     };
+    DropDown.openedEvent = "opened";
+    DropDown.selectedIndexChangedEvent = "selectedIndexChanged";
     DropDown.itemsProperty = new dependency_observable_1.Property("items", exports.DROPDOWN, new proxy_1.PropertyMetadata(undefined, dependency_observable_1.PropertyMetadataSettings.AffectsLayout, onItemsPropertyChanged));
     DropDown.selectedIndexProperty = new dependency_observable_1.Property("selectedIndex", exports.DROPDOWN, new proxy_1.PropertyMetadata(undefined, dependency_observable_1.PropertyMetadataSettings.AffectsLayout, onSelectedIndexPropertyChanged));
     DropDown.hintProperty = new dependency_observable_1.Property("hint", exports.DROPDOWN, new proxy_1.PropertyMetadata("", dependency_observable_1.PropertyMetadataSettings.AffectsLayout, onHintPropertyChanged));

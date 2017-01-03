@@ -3,6 +3,7 @@ var Observable = require("data/observable").Observable;
 var page;
 var frameModule = require("ui/frame");
 var appSet = require("application-settings");
+var LocalNotifications = require("nativescript-local-notifications");
 
 var utilityModule = require("utils/utils");
 var postTitles;
@@ -45,6 +46,7 @@ function loadLatest() {
                 postTitles.push({ postName: post['title']['rendered'],
                     theDate: thedat,
                     thelink: post['link'],
+                    fulldate: post['date'],
                     eventID: post['id'],
                     regImg: regImage,
                     regImg2: regImage,
@@ -73,6 +75,22 @@ exports.regIt = function(args) {
     } else {
         item.regImg = "~/imgs/unregister.jpg";
         appSet.setNumber("event"+item.eventID, 1);
+        console.log("full date: " + item.fulldate);
+        /*
+        LocalNotifications.schedule([{
+            id: 1,
+            title: 'Your Quasar misses you!',
+            body: 'Your Quasar misses you! You have not used your device in four days.',
+            at: new Date(new Date().getTime() + (60 * 1000 * 60 * 24 * 4)) // 60 seconds * 1000 milliseconds * 60 minutes * 24 hours * 4 days
+        }]).then(
+            function() {
+                console.log("Notification Scheduled");
+            },
+            function(error) {
+                console.log("Error scheduling: " + error);
+            }
+        );
+        */
     }
     page.getViewById("mainList").refresh();
 };

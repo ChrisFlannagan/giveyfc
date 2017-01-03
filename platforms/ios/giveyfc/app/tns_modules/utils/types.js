@@ -6,6 +6,10 @@ function isNumber(value) {
     return typeof value === "number" || value instanceof Number;
 }
 exports.isNumber = isNumber;
+function isBoolean(value) {
+    return typeof value === "boolean" || value instanceof Boolean;
+}
+exports.isBoolean = isBoolean;
 function isFunction(value) {
     if (!value) {
         return false;
@@ -39,7 +43,7 @@ function verifyCallback(value) {
 }
 exports.verifyCallback = verifyCallback;
 var classInfosMap = new Map();
-var funcNameRegex = /function (.{1,})\(/;
+var funcNameRegex = /function ([_a-zA-Z0-9]{1,})\(/;
 function getClass(object) {
     return getClassInfo(object).name;
 }

@@ -133,6 +133,7 @@ var TextField = (function (_super) {
     return TextField;
 }(common.TextField));
 exports.TextField = TextField;
+;
 var TextFieldStyler = (function () {
     function TextFieldStyler() {
     }
@@ -160,18 +161,23 @@ var TextFieldStyler = (function () {
     };
     TextFieldStyler.setPlaceholderColorProperty = function (textBase, newValue) {
         var ios = textBase._nativeView;
-        var colorAttibutes = NSMutableDictionary.alloc().init();
-        colorAttibutes.setValueForKey(newValue, NSForegroundColorAttributeName);
-        ios.attributedPlaceholder = NSAttributedString.alloc().initWithStringAttributes(ios.placeholder, colorAttibutes.copy());
+        var text = ios.placeholder + "";
+        var colorAttributes = NSMutableDictionary.alloc().init();
+        colorAttributes.setValueForKey(newValue, NSForegroundColorAttributeName);
+        ios.attributedPlaceholder = NSAttributedString.alloc().initWithStringAttributes(text, colorAttributes.copy());
     };
     TextFieldStyler.resetPlaceholderColorProperty = function (textBase, nativeValue) {
         var ios = textBase._nativeView;
-        var colorAttibutes = NSMutableDictionary.alloc().init();
-        colorAttibutes.setValueForKey(nativeValue, NSForegroundColorAttributeName);
-        ios.attributedPlaceholder = NSAttributedString.alloc().initWithStringAttributes(ios.placeholder, colorAttibutes.copy());
+        var text = ios.placeholder + "";
+        var colorAttributes = NSMutableDictionary.alloc().init();
+        colorAttributes.setValueForKey(nativeValue, NSForegroundColorAttributeName);
+        ios.attributedPlaceholder = NSAttributedString.alloc().initWithStringAttributes(text, colorAttributes.copy());
     };
     TextFieldStyler.getNativePlaceholderColorValue = function (textBase) {
         var ios = textBase._nativeView;
+        if (!ios.attributedPlaceholder) {
+            return null;
+        }
         return ios.attributedPlaceholder.attributeAtIndexEffectiveRange(NSForegroundColorAttributeName, 0, null);
     };
     TextFieldStyler.registerHandlers = function () {

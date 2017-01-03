@@ -1,6 +1,7 @@
 [![Build Status](https://travis-ci.org/PeterStaev/NativeScript-Drop-Down.svg?branch=master)](https://travis-ci.org/PeterStaev/NativeScript-Drop-Down)
-[![npm downloads](https://img.shields.io/npm/dm/nativescript-drop-down.svg?maxAge=2592000)](https://www.npmjs.com/package/nativescript-drop-down)
-[![npm](https://img.shields.io/npm/v/nativescript-drop-down.svg?maxAge=2592000)](https://www.npmjs.com/package/nativescript-drop-down)
+[![npm downloads](https://img.shields.io/npm/dm/nativescript-drop-down.svg)](https://www.npmjs.com/package/nativescript-drop-down)
+[![npm downloads](https://img.shields.io/npm/dt/nativescript-drop-down.svg)](https://www.npmjs.com/package/nativescript-drop-down)
+[![npm](https://img.shields.io/npm/v/nativescript-drop-down.svg)](https://www.npmjs.com/package/nativescript-drop-down)
 
 A NativeScript DropDown widget. The DropDown displays items from which the user can select one. For iOS it wraps up a [UITextField](https://developer.apple.com/library/prerelease/ios/documentation/UIKit/Reference/UITextField_Class/index.html) with an `inputView` set to an [UIPickerView](https://developer.apple.com/library/prerelease/ios/documentation/UIKit/Reference/UIPickerView_Class/index.html) which displays the items. For Android it wraps up the [Spinner](http://developer.android.com/reference/android/widget/Spinner.html) widget.
 
@@ -19,7 +20,20 @@ You need to add `xmlns:dd="nativescript-drop-down"` to your page tag, and then s
 
 ## API
 
+### Events
+* **opened**  
+Triggered when the DropDown is opened. 
+
+* **selectedIndexChanged**  
+Triggered when the user changes the selection in the DropDown 
+
 ### Static Properties
+* **openedEvent** - *String*  
+String value used when hooking to opened event.
+
+* **selectedIndexChangedEvent** - *String*  
+String value used when hooking to selectedIndexChanged event.
+
 * **itemsProperty** - *[Property](http://docs.nativescript.org/api-reference/classes/_ui_core_dependency_observable_.property.html)*  
 Represents the observable property backing the items property of each DropDown instance.
 
@@ -30,7 +44,7 @@ Represents the observable property backing the selectedIndex property of each Dr
 Represents the observable property backing the hint property of each DropDown instance.
 
 ### Instance Properties
-* **ios** - *[UITextField](https://developer.apple.com/library/prerelease/ios/documentation/UIKit/Reference/UITextField_Class/index.html)*  
+* **ios** - *[UILabel](https://developer.apple.com/reference/uikit/uilabel)*  
 Gets the native iOS view that represents the user interface for this component. Valid only when running on iOS.
 
 * **android** - *[android.widget.Spinner](http://developer.android.com/reference/android/widget/Spinner.html)*  
@@ -57,7 +71,9 @@ Opens the drop down.
 <!-- test-page.xml -->
 <Page xmlns="http://schemas.nativescript.org/tns.xsd" loaded="pageLoaded" xmlns:dd="nativescript-drop-down">
   <GridLayout rows="auto, auto, *" columns="auto, *">
-    <dd:DropDown items="{{ items }}" selectedIndex="{{ selectedIndex }}" row="0" colSpan="2" />
+    <dd:DropDown items="{{ items }}" selectedIndex="{{ selectedIndex }}" 
+                 opened="dropDownOpened" selectedIndexChanged="dropDownSelectedIndexChanged"
+                 row="0" colSpan="2" />
     <Label text="Selected Index:" row="1" col="0" fontSize="18" verticalAlignment="bottom"/>
     <TextField text="{{ selectedIndex }}" row="1" col="1" />
   </GridLayout>
@@ -69,6 +85,7 @@ Opens the drop down.
 import observable = require("data/observable");
 import observableArray = require("data/observable-array");
 import pages = require("ui/page");
+import { SelectedIndexChangedEventData } from "nativescript-drop-down";
 
 var viewModel: observable.Observable;
 
@@ -87,24 +104,45 @@ export function pageLoaded(args: observable.EventData) {
 
     page.bindingContext = viewModel;
 }
+
+export function dropDownOpened(args: EventData) {
+    console.log("Drop Down opened");
+}
+
+export function dropDownSelectedIndexChanged(args: SelectedIndexChangedEventData) {
+    console.log(`Drop Down selected index changed from ${args.oldIndex} to ${args.newIndex}`);
+}
 ```
 
 ## Angular 2 Example
 
 ```TypeScript
 // main.ts
-import {nativeScriptBootstrap} from "nativescript-angular/application";
-import {AppComponent} from "./app.component";
-import {registerElement} from "nativescript-angular/element-registry";
+import { platformNativeScriptDynamic, NativeScriptModule } from "nativescript-angular/platform";
+import { NgModule } from "@angular/core";
+import { AppComponent } from "./app.component";
+import { registerElement } from "nativescript-angular/element-registry";
+
 registerElement("DropDown", () => require("nativescript-drop-down/drop-down").DropDown);
-nativeScriptBootstrap(AppComponent);
+
+@NgModule({
+    declarations: [AppComponent],
+    bootstrap: [AppComponent],
+    imports: [NativeScriptModule],
+})
+class AppComponentModule {}
+
+platformNativeScriptDynamic().bootstrapModule(AppComponentModule);
 ```
 
 ```HTML
 <!-- app.component.html -->
 <StackLayout>
     <GridLayout rows="auto, auto, *" columns="auto, *">
-        <DropDown #dd backroundColor="red" [items]="items" [selectedIndex]="selectedIndex" (selectedIndexChange)="onchange(dd.selectedIndex)" row="0" colSpan="2"></DropDown>
+        <DropDown #dd backroundColor="red" [items]="items" [selectedIndex]="selectedIndex" 
+                  (selectedIndexChanged)="onchange($event)" (opened)="onopen()"
+                  row="0" colSpan="2">
+        </DropDown>
         <Label text="Selected Index:" row="1" col="0" fontSize="18" verticalAlignment="bottom"></Label>
         <TextField [text]="selected" row="1" col="1" ></TextField>
     </GridLayout>
@@ -113,8 +151,8 @@ nativeScriptBootstrap(AppComponent);
 
 ```TypeScript
 // app.component.ts
-import {Component, OnInit, OnChanges} from "@angular/core";
-import {ObservableArray} from "data/observable-array";
+import { Component } from "@angular/core";
+import { SelectedIndexChangedEventData } from "nativescript-drop-down";
 
 @Component({
     selector: "my-app",
@@ -131,8 +169,12 @@ export class AppComponent {
         }
     }
 
-    public onchange(selectedi){
-        console.log("selected index " + selectedi);
+    public onchange(args: SelectedIndexChangedEventData) {
+        console.log(`Drop Down selected index changed from ${args.oldIndex} to ${args.newIndex}`);
+    }
+
+    public onopen() {
+        console.log("Drop Down opened.");
     }
 }
 ```

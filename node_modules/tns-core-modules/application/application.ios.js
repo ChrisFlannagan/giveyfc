@@ -34,7 +34,12 @@ var Window = (function (_super) {
         configurable: true
     });
     Window.prototype.layoutSubviews = function () {
-        uiUtils.ios._layoutRootView(this._content, utils.ios.getter(UIScreen, UIScreen.mainScreen).bounds);
+        if (utils.ios.MajorVersion < 9) {
+            uiUtils.ios._layoutRootView(this._content, utils.ios.getter(UIScreen, UIScreen.mainScreen).bounds);
+        }
+        else {
+            uiUtils.ios._layoutRootView(this._content, this.frame);
+        }
     };
     return Window;
 }(UIWindow));
@@ -76,6 +81,13 @@ var IOSApplication = (function () {
         enumerable: true,
         configurable: true
     });
+    Object.defineProperty(IOSApplication.prototype, "window", {
+        get: function () {
+            return this._window;
+        },
+        enumerable: true,
+        configurable: true
+    });
     Object.defineProperty(IOSApplication.prototype, "delegate", {
         get: function () {
             return this._delegate;
@@ -113,23 +125,7 @@ var IOSApplication = (function () {
             ios: notification.userInfo && notification.userInfo.objectForKey("UIApplicationLaunchOptionsLocalNotificationKey") || null
         };
         typedExports.notify(args);
-        var rootView = args.root;
-        var frame;
-        var navParam;
-        if (!rootView) {
-            navParam = typedExports.mainEntry;
-            if (!navParam) {
-                navParam = typedExports.mainModule;
-            }
-            if (navParam) {
-                frame = new frame_1.Frame();
-                frame.navigate(navParam);
-            }
-            else {
-                throw new Error("A Frame must be used to navigate to a Page.");
-            }
-            rootView = frame;
-        }
+        var rootView = createRootView(args.root);
         this._window.content = rootView;
         if (rootView instanceof frame_1.Frame) {
             this.rootController = this._window.rootViewController = rootView.ios.controller;
@@ -223,6 +219,26 @@ function addCss(cssText) {
     }
 }
 exports.addCss = addCss;
+function createRootView(v) {
+    var rootView = v;
+    var frame;
+    var navParam;
+    if (!rootView) {
+        navParam = typedExports.mainEntry;
+        if (!navParam) {
+            navParam = typedExports.mainModule;
+        }
+        if (navParam) {
+            frame = new frame_1.Frame();
+            frame.navigate(navParam);
+        }
+        else {
+            throw new Error("A Frame must be used to navigate to a Page.");
+        }
+        rootView = frame;
+    }
+    return rootView;
+}
 var started = false;
 typedExports.start = function (entry) {
     if (!started) {
@@ -231,7 +247,22 @@ typedExports.start = function (entry) {
         }
         started = true;
         loadCss();
-        UIApplicationMain(0, null, null, typedExports.ios && typedExports.ios.delegate ? NSStringFromClass(typedExports.ios.delegate) : NSStringFromClass(Responder));
+        if (!iosApp.nativeApp) {
+            UIApplicationMain(0, null, null, typedExports.ios && typedExports.ios.delegate ? NSStringFromClass(typedExports.ios.delegate) : NSStringFromClass(Responder));
+        }
+        else {
+            var rootView = createRootView();
+            if (rootView) {
+                var window = iosApp.nativeApp.keyWindow || (iosApp.nativeApp.windows.count > 0 && iosApp.nativeApp.windows[0]);
+                if (window) {
+                    var rootController = window.rootViewController;
+                    if (rootController) {
+                        rootController.presentViewControllerAnimatedCompletion(rootView.ios.controller, utils.ios.MajorVersion >= 7, null);
+                        uiUtils.ios._layoutRootView(rootView, utils.ios.getter(UIScreen, UIScreen.mainScreen).bounds);
+                    }
+                }
+            }
+        }
     }
     else {
         throw new Error("iOS Application already started!");

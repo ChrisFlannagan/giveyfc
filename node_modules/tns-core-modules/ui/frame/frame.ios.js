@@ -206,6 +206,7 @@ var Frame = (function (_super) {
         }
     };
     Frame.prototype.onMeasure = function (widthMeasureSpec, heightMeasureSpec) {
+        view_1.View.adjustChildLayoutParams(this.currentPage, widthMeasureSpec, heightMeasureSpec);
         var width = utils.layout.getMeasureSpecSize(widthMeasureSpec);
         var widthMode = utils.layout.getMeasureSpecMode(widthMeasureSpec);
         var height = utils.layout.getMeasureSpecSize(heightMeasureSpec);
@@ -240,6 +241,7 @@ var Frame = (function (_super) {
         if (this._navigateToEntry && this.currentPage) {
             this.layoutPage(this._navigateToEntry.resolvedPage);
         }
+        view_1.View.restoreChildOriginalParams(this.currentPage);
     };
     Frame.prototype.layoutPage = function (page) {
         if (page && page._viewWillDisappear) {

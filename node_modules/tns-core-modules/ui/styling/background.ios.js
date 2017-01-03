@@ -126,8 +126,8 @@ var ios;
             return background.color ? background.color.ios : undefined;
         }
         var frame = nativeView.frame;
-        var boundsWidth = frame.size.width;
-        var boundsHeight = frame.size.height;
+        var boundsWidth = view.scaleX ? frame.size.width / view.scaleX : frame.size.width;
+        var boundsHeight = view.scaleY ? frame.size.height / view.scaleY : frame.size.height;
         if (!boundsWidth || !boundsHeight) {
             return undefined;
         }
@@ -140,7 +140,7 @@ var ios;
             img = UIGraphicsGetImageFromCurrentImageContext();
             UIGraphicsEndImageContext();
         }
-        UIGraphicsBeginImageContextWithOptions(frame.size, false, 0.0);
+        UIGraphicsBeginImageContextWithOptions(CGSizeFromString("{" + boundsWidth + "," + boundsHeight + "}"), false, 0.0);
         var context = UIGraphicsGetCurrentContext();
         if (background.color && background.color.ios) {
             CGContextSetFillColorWithColor(context, background.color.ios.CGColor);

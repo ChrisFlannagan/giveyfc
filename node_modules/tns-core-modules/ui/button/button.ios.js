@@ -76,7 +76,7 @@ var Button = (function (_super) {
         }
     };
     __decorate([
-        view_1.PseudoClassHandler("normal", "highlighted")
+        view_1.PseudoClassHandler("normal", "highlighted", "pressed", "active")
     ], Button.prototype, "_updateHandler", null);
     return Button;
 }(common.Button));

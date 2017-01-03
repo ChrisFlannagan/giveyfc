@@ -3,6 +3,7 @@ var appSettings = require("application-settings");
 var observable = require("data/observable");
 var frameModule = require("ui/frame");
 var pageData = new observable.Observable();
+var gestures = require("ui/gestures");
 
 var md5 = require('js-md5');
 
@@ -42,12 +43,43 @@ exports.loaded = function(args) {
     pageData.set("userEmail", userEmail);
     pageData.set("userPin", userPin);
     page.bindingContext = pageData;
+
+    var observer = page.observe(gestures.GestureTypes.tap, function (args) {
+        var textField;
+        try {
+            textField = page.getViewById("user-name");
+            textField.dismissSoftInput();
+        } catch(err) {
+
+        }
+
+        try {
+            textField = page.getViewById("user-lname");
+            textField.dismissSoftInput();
+        } catch(err) {
+
+        }
+
+        try {
+            textField = page.getViewById("user-email");
+            textField.dismissSoftInput();
+        } catch(err) {
+
+        }
+
+        try {
+            textField = page.getViewById("user-pin");
+            textField.dismissSoftInput();
+        } catch(err) {
+
+        }
+    });
 };
 
 exports.saveUser = function() {
     if(pageData.get("firstName") != '' && pageData.get("lastName") != "" && pageData.get("userEmail") != "" && pageData.userPin.length == 4) {
     console.log("Sending: " + global.giveurl + "/give-app-api/register/" + pageData.get("firstName").replace(" ", "%20") + "%20" + pageData.get("lastName").replace(" ", "%20") + "/" + pageData.get("userEmail") + "/" + md5(pageData.userPin+global.hash) );
-        fetch(global.giveurl + "/give-app-api/register/" + pageData.get("firstName").replace(" ", "%20") + "%20" + pageData.get("lastName").replace(" ", "%20") + "/" + pageData.get("userEmail") + "/" + md5(pageData.userPin+global.hash) , {
+        fetch(global.giveurl + "/give-app-api/register/" + pageData.get("firstName").replace(" ", "%20") + "%20" + pageData.get("lastName").replace(" ", "%20") + "/" + pageData.get("userEmail") + "/" + pageData.get("userPin") , {
             method: "GET",
             body: '',
             headers: {
@@ -71,7 +103,7 @@ exports.saveUser = function() {
                     appSettings.setBoolean("logged", true);
                     home();
                 } else {
-                    // dialogue that it's already a user
+                    console.log(data)
                 }
             });
     }

@@ -17,8 +17,17 @@ limitations under the License.
 declare module "nativescript-drop-down" {
     import { View } from "ui/core/view";
     import { Property } from "ui/core/dependency-observable";
+    import { EventData } from "data/observable";
+
+    export interface SelectedIndexChangedEventData extends EventData {
+        oldIndex: number;
+        newIndex: number;
+    }
 
     export class DropDown extends View {
+        public static openedEvent: string;
+        public static selectedIndexChangedEvent: string;
+
         public static itemsProperty: Property;
         public static selectedIndexProperty: Property;
         public static hintProperty: Property;
@@ -28,8 +37,12 @@ declare module "nativescript-drop-down" {
         hint: string;
         accessoryViewVisible: boolean; /* iOS ONLY! */
 
-        ios: UITextField;
+        ios: UILabel;
         android: android.widget.Spinner;
+
+        public on(eventNames: string, callback: (data: EventData) => void, thisArg?: any);       
+        public on(event: "opened", callback: (args: EventData) => void, thisArg?: any); 
+        public on(event: "selectedIndexChanged", callback: (args: SelectedIndexChangedEventData) => void, thisArg?: any);
 
         public open();
     }

@@ -1,3 +1,4 @@
+var application = require("application");
 var pageCommon = require("./page-common");
 var view_1 = require("ui/core/view");
 var trace = require("trace");
@@ -105,6 +106,9 @@ var UIViewControllerImpl = (function (_super) {
             }
         }
         else {
+            if (!application.ios.window) {
+                uiUtils.ios._layoutRootView(owner, utils.ios.getter(UIScreen, UIScreen.mainScreen).bounds);
+            }
             owner._updateLayout();
         }
     };
@@ -347,6 +351,7 @@ var Page = (function (_super) {
         }
     };
     Page.prototype.onMeasure = function (widthMeasureSpec, heightMeasureSpec) {
+        view_1.View.adjustChildLayoutParams(this.layoutView, widthMeasureSpec, heightMeasureSpec);
         var width = utils.layout.getMeasureSpecSize(widthMeasureSpec);
         var widthMode = utils.layout.getMeasureSpecMode(widthMeasureSpec);
         var height = utils.layout.getMeasureSpecSize(heightMeasureSpec);
@@ -387,6 +392,7 @@ var Page = (function (_super) {
             statusBarHeight = 0;
         }
         view_1.View.layoutChild(this, this.layoutView, 0, navigationBarHeight + statusBarHeight, right - left, bottom - top);
+        view_1.View.restoreChildOriginalParams(this.layoutView);
     };
     Page.prototype._addViewToNativeVisualTree = function (view) {
         if (view === this.actionBar) {

@@ -3,12 +3,6 @@ var types = require("utils/types");
 var style = require("ui/styling/style");
 var utils = require("utils/utils");
 global.moduleMerge(common, exports);
-var color;
-function ensureColor() {
-    if (!color) {
-        color = require("color");
-    }
-}
 function onSelectedIndexPropertyChanged(data) {
     var view = data.object;
     if (!view.ios || !view.items) {
@@ -52,17 +46,6 @@ function onItemsPropertyChanged(data) {
     }
 }
 common.SegmentedBar.itemsProperty.metadata.onSetNativeValue = onItemsPropertyChanged;
-function onSelectedBackgroundColorPropertyChanged(data) {
-    var view = data.object;
-    if (!view.ios) {
-        return;
-    }
-    ensureColor();
-    if (data.newValue instanceof color.Color) {
-        view.ios.tintColor = data.newValue.ios;
-    }
-}
-common.SegmentedBar.selectedBackgroundColorProperty.metadata.onSetNativeValue = onSelectedBackgroundColorPropertyChanged;
 var SegmentedBarItem = (function (_super) {
     __extends(SegmentedBarItem, _super);
     function SegmentedBarItem() {
@@ -189,9 +172,28 @@ var SegmentedBarStyler = (function () {
         }
         return currentFont;
     };
+    SegmentedBarStyler.setSelectedBackgroundColorProperty = function (v, newValue) {
+        if (!v.ios) {
+            return;
+        }
+        v.ios.tintColor = newValue;
+    };
+    SegmentedBarStyler.resetSelectedBackgroundColorProperty = function (v, nativeValue) {
+        if (!v.ios) {
+            return;
+        }
+        v.ios.tintColor = nativeValue;
+    };
+    SegmentedBarStyler.getSelectedBackgroundColorProperty = function (v) {
+        if (!v.ios) {
+            return;
+        }
+        return v.ios.tintColor;
+    };
     SegmentedBarStyler.registerHandlers = function () {
         style.registerHandler(style.colorProperty, new style.StylePropertyChangedHandler(SegmentedBarStyler.setColorProperty, SegmentedBarStyler.resetColorProperty), "SegmentedBar");
         style.registerHandler(style.fontInternalProperty, new style.StylePropertyChangedHandler(SegmentedBarStyler.setFontInternalProperty, SegmentedBarStyler.resetFontInternalProperty, SegmentedBarStyler.getNativeFontValue), "SegmentedBar");
+        style.registerHandler(style.selectedBackgroundColorProperty, new style.StylePropertyChangedHandler(SegmentedBarStyler.setSelectedBackgroundColorProperty, SegmentedBarStyler.resetSelectedBackgroundColorProperty, SegmentedBarStyler.getSelectedBackgroundColorProperty), "SegmentedBar");
     };
     return SegmentedBarStyler;
 }());

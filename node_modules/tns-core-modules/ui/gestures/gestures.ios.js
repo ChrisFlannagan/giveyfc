@@ -3,6 +3,8 @@ var definition = require("ui/gestures");
 var view = require("ui/core/view");
 var trace = require("trace");
 var types = require("utils/types");
+var utils = require("utils/utils");
+var getter = utils.ios.getter;
 global.moduleMerge(common, exports);
 var UIGestureRecognizerDelegateImpl = (function (_super) {
     __extends(UIGestureRecognizerDelegateImpl, _super);
@@ -376,7 +378,7 @@ var TouchGestureEventData = (function () {
         this._allPointers = undefined;
     };
     TouchGestureEventData.prototype.getPointerCount = function () {
-        return this.ios.event.allTouches().count;
+        return getter(this.ios.event, this.ios.event.allTouches).count;
     };
     TouchGestureEventData.prototype.getMainPointer = function () {
         if (types.isUndefined(this._mainPointer)) {
@@ -396,7 +398,7 @@ var TouchGestureEventData = (function () {
     TouchGestureEventData.prototype.getAllPointers = function () {
         if (!this._allPointers) {
             this._allPointers = [];
-            var nsArr = this.ios.event.allTouches().allObjects;
+            var nsArr = getter(this.ios.event, this.ios.event.allTouches).allObjects;
             for (var i = 0; i < nsArr.count; i++) {
                 this._allPointers.push(new Pointer(nsArr.objectAtIndex(i), this.view));
             }

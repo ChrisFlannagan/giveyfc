@@ -5,12 +5,12 @@
       <Label text="Your First Name" />
       <TextView id="user-name" text="{{ firstName }}" />
       <Label text="Your Last Name" />
-      <TextView id="user-name" text="{{ lastName }}" />
+      <TextView id="user-lname" text="{{ lastName }}" />
       <Label text="Your Email" />
-      <TextView id="user-email" text="{{ userEmail }}" />
+      <TextView id="user-email" text="{{ userEmail }}" hint="Email Address" keyboardType="email" autocorrect="false" autocapitalizeationType="none" />
       <Label text="Security PIN (4 digits)" />
-      <TextView id="user-pin" text="{{ userPin }}" />
+      <TextView id="user-pin" text="{{ userPin }}" keyboardType="phone" />
     </StackLayout>
-  <Button row="2" class="big-yellow-btns" text="Create Profile" tap="saveUser" />
+  <Button row="2" class="big-yellow-btns" text="Sign In" tap="saveUser" />
   </GridLayout>
 </Page>
