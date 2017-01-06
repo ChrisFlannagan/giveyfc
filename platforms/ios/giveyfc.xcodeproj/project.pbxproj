@@ -6,16 +6,15 @@
 	objectVersion = 46;
 	objects = {
 /* Begin PBXBuildFile section */
+		2414A7E6277D46E5A41237CC /* TNSWidgets.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 654D5477D348492F8CDD9D3E /* TNSWidgets.framework */; };
+		43B7AC70EC1E49EBA71C7769 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 99A3EF3C50B54C59AE6C55C8 /* LaunchScreen.storyboard */; };
+		58B16C380D674259AC2E843D /* LocalNotificationsPlugin.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AB0CAD872DC44929A9BE858C /* LocalNotificationsPlugin.framework */; };
+		6BDB5E840BF24C95B26ABD98 /* TNSWidgets.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 654D5477D348492F8CDD9D3E /* TNSWidgets.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		80FC56BF32C34208A57A767B /* LocalNotificationsPlugin.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = AB0CAD872DC44929A9BE858C /* LocalNotificationsPlugin.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		858B842D18CA22B800AB12DE /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 858B833A18CA111C00AB12DE /* InfoPlist.strings */; };
+		8B3511417025493692D375E4 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 4370163C2ED54AB0BC814BB5 /* Assets.xcassets */; };
 		CD45EE7C18DC2D5800FB50C0 /* app in Resources */ = {isa = PBXBuildFile; fileRef = CD45EE7A18DC2D5800FB50C0 /* app */; };
 		CD62955D1BB2678900AE3A93 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = CD62955C1BB2678900AE3A93 /* main.m */; };
-		8B3511417025493692D375E4 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 4370163C2ED54AB0BC814BB5 /* Assets.xcassets */; };
-		43B7AC70EC1E49EBA71C7769 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 99A3EF3C50B54C59AE6C55C8 /* LaunchScreen.storyboard */; };
-		C883D3679F744BB5BA68F2B2 /* build.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = D1E7DBCE1BF848E49F03B2E3 /* build.xcconfig */; };
-		2414A7E6277D46E5A41237CC /* TNSWidgets.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 654D5477D348492F8CDD9D3E /* TNSWidgets.framework */; };
-		6BDB5E840BF24C95B26ABD98 /* TNSWidgets.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 654D5477D348492F8CDD9D3E /* TNSWidgets.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
-		58B16C380D674259AC2E843D /* LocalNotificationsPlugin.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AB0CAD872DC44929A9BE858C /* LocalNotificationsPlugin.framework */; };
-		80FC56BF32C34208A57A767B /* LocalNotificationsPlugin.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = AB0CAD872DC44929A9BE858C /* LocalNotificationsPlugin.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -34,21 +33,21 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		4370163C2ED54AB0BC814BB5 /* Assets.xcassets */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = unknown; name = Assets.xcassets; path = giveyfc/Resources/Assets.xcassets; sourceTree = "<group>"; };
+		654D5477D348492F8CDD9D3E /* TNSWidgets.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = TNSWidgets.framework; path = ../../lib/iOS/TNSWidgets.framework; sourceTree = "<group>"; };
 		858B832E18CA111C00AB12DE /* giveyfc.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = giveyfc.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		858B833918CA111C00AB12DE /* giveyfc-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "giveyfc-Info.plist"; sourceTree = "<group>"; };
 		858B833B18CA111C00AB12DE /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		858B833F18CA111C00AB12DE /* giveyfc-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "giveyfc-Prefix.pch"; sourceTree = "<group>"; };
 		858B843318CA22B800AB12DE /* giveyfc.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = giveyfc.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		99A3EF3C50B54C59AE6C55C8 /* LaunchScreen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = unknown; name = LaunchScreen.storyboard; path = giveyfc/Resources/LaunchScreen.storyboard; sourceTree = "<group>"; };
+		AB0CAD872DC44929A9BE858C /* LocalNotificationsPlugin.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = LocalNotificationsPlugin.framework; path = ../../lib/iOS/LocalNotificationsPlugin.framework; sourceTree = "<group>"; };
 		CD45EE7A18DC2D5800FB50C0 /* app */ = {isa = PBXFileReference; lastKnownFileType = folder; path = app; sourceTree = "<group>"; };
 		CD62955C1BB2678900AE3A93 /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = main.m; path = internal/main.m; sourceTree = SOURCE_ROOT; };
 		CDD59A261BB43B5D00EC2671 /* build-debug.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = "build-debug.xcconfig"; sourceTree = "<group>"; };
 		CDD59A271BB43B5D00EC2671 /* build-release.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = "build-release.xcconfig"; sourceTree = "<group>"; };
 		CDF4743E1BA4855C0087EA85 /* build.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = build.xcconfig; sourceTree = "<group>"; };
-		4370163C2ED54AB0BC814BB5 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = unknown; name = Assets.xcassets; path = "giveyfc/Resources/Assets.xcassets"; sourceTree = "<group>"; fileEncoding = 4; };
-		99A3EF3C50B54C59AE6C55C8 /* LaunchScreen.storyboard */ = {isa = PBXFileReference; lastKnownFileType = unknown; name = LaunchScreen.storyboard; path = "giveyfc/Resources/LaunchScreen.storyboard"; sourceTree = "<group>"; fileEncoding = 4; };
-		D1E7DBCE1BF848E49F03B2E3 /* build.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = unknown; name = build.xcconfig; path = "giveyfc/Resources/build.xcconfig"; sourceTree = "<group>"; fileEncoding = 4; };
-		654D5477D348492F8CDD9D3E /* TNSWidgets.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = TNSWidgets.framework; path = "../../lib/iOS/TNSWidgets.framework"; sourceTree = "<group>"; };
-		AB0CAD872DC44929A9BE858C /* LocalNotificationsPlugin.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = LocalNotificationsPlugin.framework; path = "../../lib/iOS/LocalNotificationsPlugin.framework"; sourceTree = "<group>"; };
+		D1E7DBCE1BF848E49F03B2E3 /* build.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = unknown; name = build.xcconfig; path = giveyfc/Resources/build.xcconfig; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -156,8 +155,14 @@
 			isa = PBXProject;
 			attributes = {
 				CLASSPREFIX = TNS;
-				LastUpgradeCheck = 500;
+				LastUpgradeCheck = 820;
 				ORGANIZATIONNAME = Telerik;
+				TargetAttributes = {
+					858B83EF18CA22B800AB12DE = {
+						DevelopmentTeam = AXBC83F37Q;
+						ProvisioningStyle = Automatic;
+					};
+				};
 			};
 			buildConfigurationList = 858B832918CA111C00AB12DE /* Build configuration list for PBXProject "giveyfc" */;
 			compatibilityVersion = "Xcode 3.2";
@@ -185,7 +190,6 @@
 				858B842D18CA22B800AB12DE /* InfoPlist.strings in Resources */,
 				8B3511417025493692D375E4 /* Assets.xcassets in Resources */,
 				43B7AC70EC1E49EBA71C7769 /* LaunchScreen.storyboard in Resources */,
-				C883D3679F744BB5BA68F2B2 /* build.xcconfig in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -266,7 +270,6 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
-				ARCHS = "$(ARCHS_STANDARD)";
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
 				CLANG_CXX_LIBRARY = "libc++";
 				CLANG_ENABLE_MODULES = YES;
@@ -276,13 +279,19 @@
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_EMPTY_BODY = YES;
 				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				COPY_PHASE_STRIP = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
 				GCC_OPTIMIZATION_LEVEL = 0;
 				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
 				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
@@ -303,7 +312,6 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
-				ARCHS = "$(ARCHS_STANDARD)";
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
 				CLANG_CXX_LIBRARY = "libc++";
 				CLANG_ENABLE_MODULES = YES;
@@ -313,13 +321,18 @@
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_EMPTY_BODY = YES;
 				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				COPY_PHASE_STRIP = YES;
 				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_NO_COMMON_BLOCKS = YES;
 				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
 				GCC_WARN_UNDECLARED_SELECTOR = YES;
@@ -338,10 +351,19 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = CDD59A261BB43B5D00EC2671 /* build-debug.xcconfig */;
 			buildSettings = {
-				ARCHS = "$(ARCHS_STANDARD)";
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CLANG_ENABLE_MODULES = NO;
 				CLANG_MODULES_AUTOLINK = NO;
+				CODE_SIGN_IDENTITY = "iPhone Developer: Kevin Flannagan (6FLVK4MVL7)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				DEVELOPMENT_TEAM = AXBC83F37Q;
 				ENABLE_BITCODE = NO;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"../../lib/iOS\"",
+					"\"../../lib/iOS\"",
+				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "giveyfc/giveyfc-Prefix.pch";
 				GCC_PREPROCESSOR_DEFINITIONS = (
@@ -350,14 +372,10 @@
 				);
 				INFOPLIST_FILE = "$(SRCROOT)/giveyfc/giveyfc-Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = org.nativescript.giveyfc;
 				PRODUCT_NAME = giveyfc;
 				VALID_ARCHS = "armv7 arm64";
 				WRAPPER_EXTENSION = app;
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(inherited)",
-					"\"../../lib/iOS\"",
-					"\"../../lib/iOS\"",
-				);
 			};
 			name = Debug;
 		};
@@ -365,22 +383,27 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = CDD59A271BB43B5D00EC2671 /* build-release.xcconfig */;
 			buildSettings = {
-				ARCHS = "$(ARCHS_STANDARD)";
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CLANG_ENABLE_MODULES = NO;
 				CLANG_MODULES_AUTOLINK = NO;
+				CODE_SIGN_IDENTITY = "iPhone Developer: Kevin Flannagan (6FLVK4MVL7)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				DEVELOPMENT_TEAM = AXBC83F37Q;
 				ENABLE_BITCODE = NO;
-				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "giveyfc/giveyfc-Prefix.pch";
-				INFOPLIST_FILE = "$(SRCROOT)/giveyfc/giveyfc-Info.plist";
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_NAME = giveyfc;
-				VALID_ARCHS = "armv7 arm64";
-				WRAPPER_EXTENSION = app;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"../../lib/iOS\"",
 					"\"../../lib/iOS\"",
 				);
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "giveyfc/giveyfc-Prefix.pch";
+				INFOPLIST_FILE = "$(SRCROOT)/giveyfc/giveyfc-Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = org.nativescript.giveyfc;
+				PRODUCT_NAME = giveyfc;
+				VALID_ARCHS = "armv7 arm64";
+				WRAPPER_EXTENSION = app;
 			};
 			name = Release;
 		};
