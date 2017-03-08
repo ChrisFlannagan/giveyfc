@@ -1,0 +1,15 @@
+.stack-holder {
+}
+.post-title {
+    width: 100%;
+    padding: 5;
+}
+.event-date {
+    padding: 5;
+    color: #666;
+}
+
+.hr2 {
+    height: 2;
+    background-color: #333;
+}

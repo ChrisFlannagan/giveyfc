@@ -1,9 +1,9 @@
 Label {
     padding: 5;
 }
-TextView {
+TextField {
      margin: 5;
     padding: 5;
     font-size: 20;
-    border-widtH: 1;
+    border-width: 1;
 }

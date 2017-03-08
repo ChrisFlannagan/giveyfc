@@ -19,9 +19,10 @@
                 </ListView.itemTemplate>
                 <Label class="hr2" />
             </ListView>
-            <StackLayout row="3">
-                <Button class="big-yellow-btns" text="Donate" tap="goDonate" />
-            </StackLayout>
+            <GridLayout row="3" columns="*,*">
+                <Button col="0" class="big-yellow-btns" text="Donate" tap="goDonate" />
+                <Button col="1" class="big-yellow-btns" text="History" tap="goHistory" />
+            </GridLayout>
         </GridLayout>
     </StackLayout>
 </Page>

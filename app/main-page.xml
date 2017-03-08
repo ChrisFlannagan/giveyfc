@@ -1,19 +1,16 @@
 <Page xmlns="http://schemas.nativescript.org/tns.xsd" loaded="loaded">
-  <ScrollView>
   <GridLayout rows="80,*">
-  <Image src="~/imgs/logo.jpg" row="0" />
+    <Image src="~/imgs/logo.jpg" row="0" />
       <StackLayout row="1">
         <Label text="Your First Name" />
-        <TextView id="user-name" text="{{ firstName }}" />
+        <TextField id="user-name" autocorrect="false" text="{{ firstName }}" />
         <Label text="Your Last Name" />
-        <TextView id="user-lname" text="{{ lastName }}" />
+        <TextField id="user-lname" autocorrect="false" text="{{ lastName }}" />
         <Label text="Your Email" />
-        <TextView id="user-email" text="{{ userEmail }}" hint="Email Address" keyboardType="email" autocorrect="false" autocapitalizeationType="none" />
+        <TextField id="user-email" text="{{ userEmail }}" hint="Email Address" keyboardType="email" autocorrect="false" autocapitalizationType="none" />
         <Label text="Security PIN (4 digits)" />
-        <TextView id="user-pin" text="{{ userPin }}" keyboardType="phone" />
+        <TextField id="user-pin" text="{{ userPin }}" keyboardType="phone" />
         <Button row="2" class="big-yellow-btns" text="Sign In" tap="saveUser" />
-        <Label height="400"></Label>
       </StackLayout>
     </GridLayout>
-  </ScrollView>
 </Page>

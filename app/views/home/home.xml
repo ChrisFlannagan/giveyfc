@@ -11,10 +11,13 @@
                     </StackLayout>
                 </ListView.itemTemplate>
             </ListView>
-            <StackLayout row="3">
-                <Button class="big-yellow-btns" text="Events" tap="goEvent" />
-                <Button class="big-yellow-btns" text="Donate" tap="goDonate" />
-            </StackLayout>
+            <GridLayout row="3" rows="*,*">
+                <Button row="0" class="big-yellow-btns" text="Events" tap="goEvent" />
+                <GridLayout row="1" columns="*,*">
+                    <Button col="0" class="big-yellow-btns" text="Donate" tap="goDonate" />
+                    <Button col="1" class="big-yellow-btns" text="History" tap="goHistory" />
+                </GridLayout>
+            </GridLayout>
         </GridLayout>
     </StackLayout>
 </Page>

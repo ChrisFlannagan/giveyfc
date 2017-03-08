@@ -43,37 +43,6 @@ exports.loaded = function(args) {
     pageData.set("userEmail", userEmail);
     pageData.set("userPin", userPin);
     page.bindingContext = pageData;
-
-    var observer = page.observe(gestures.GestureTypes.tap, function (args) {
-        var textField;
-        try {
-            textField = page.getViewById("user-name");
-            textField.dismissSoftInput();
-        } catch(err) {
-
-        }
-
-        try {
-            textField = page.getViewById("user-lname");
-            textField.dismissSoftInput();
-        } catch(err) {
-
-        }
-
-        try {
-            textField = page.getViewById("user-email");
-            textField.dismissSoftInput();
-        } catch(err) {
-
-        }
-
-        try {
-            textField = page.getViewById("user-pin");
-            textField.dismissSoftInput();
-        } catch(err) {
-
-        }
-    });
 };
 
 exports.saveUser = function() {

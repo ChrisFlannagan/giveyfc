@@ -21,6 +21,11 @@ exports.goDonate = function() {
     topmost.navigate("views/donate/donate");
 };
 
+exports.goHistory = function() {
+    var topmost = frameModule.topmost();
+    topmost.navigate("views/history/history");
+};
+
 exports.goEvent = function() {
     var topmost = frameModule.topmost();
     topmost.navigate("views/events/events");
