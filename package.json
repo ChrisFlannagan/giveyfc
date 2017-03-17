@@ -4,10 +4,7 @@
   "readme": "NativeScript Application",
   "repository": "<fill-your-repository-here>",
   "nativescript": {
-    "id": "org.nativescript.giveyfc",
-    "tns-ios": {
-      "version": "2.5.0"
-    }
+    "id": "org.nativescript.giveyfc"
   },
   "dependencies": {
     "js-md5": "^0.4.1",

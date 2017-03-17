@@ -2,6 +2,7 @@
   <GridLayout rows="80,*">
     <Image src="~/imgs/logo.jpg" row="0" />
       <StackLayout row="1">
+        <Button tap="closeKeybd" class="nrm-btn" text="Close Keyboard" />
         <Label text="Your First Name" />
         <TextField id="user-name" autocorrect="false" text="{{ firstName }}" />
         <Label text="Your Last Name" />

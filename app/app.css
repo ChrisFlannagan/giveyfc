@@ -19,6 +19,11 @@ Button {
     border-color: #ffd234;
 }
 
+nrm-btn {
+    background-color: #ccc;
+    color: #333;
+}
+
 .message {
     font-size: 20;
     color: #284848;

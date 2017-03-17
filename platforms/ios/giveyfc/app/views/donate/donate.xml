@@ -1,3 +1,0 @@
-<Page xmlns="http://schemas.nativescript.org/tns.xsd" loaded="loaded" xmlns:dd="nativescript-drop-down">
-    <web-view id="webView"></web-view>
-</Page>

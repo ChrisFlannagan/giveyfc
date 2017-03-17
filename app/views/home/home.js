@@ -54,7 +54,8 @@ function loadLatest() {
             var posts = JSON.parse(data._bodyInit);
             posts.forEach(function(post) {
                 console.log(post['title']['rendered']);
-                postTitles.push({ postName: post['title']['rendered'], thelink: post['link'] });
+                var t = post['title']['rendered'].replace("&#8217;", "'").replace("&#8221;", "\"").replace("&#8311;", "-").replace("&#038;", "&");
+                postTitles.push({ postName: t, thelink: post['link'] });
             });
         });
 

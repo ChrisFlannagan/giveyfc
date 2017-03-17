@@ -45,6 +45,13 @@ exports.loaded = function(args) {
     page.bindingContext = pageData;
 };
 
+exports.closeKeybd = function() {
+    page.getViewById("user-name").dismissSoftInput();
+    page.getViewById("user-lname").dismissSoftInput();
+    page.getViewById("user-email").dismissSoftInput();
+    page.getViewById("user-pin").dismissSoftInput();
+};
+
 exports.saveUser = function() {
     if(pageData.get("firstName") != '' && pageData.get("lastName") != "" && pageData.get("userEmail") != "" && pageData.userPin.length == 4) {
     console.log("Sending: " + global.giveurl + "/give-app-api/register/" + pageData.get("firstName").replace(" ", "%20") + "%20" + pageData.get("lastName").replace(" ", "%20") + "/" + pageData.get("userEmail") + "/" + md5(pageData.userPin+global.hash) );
