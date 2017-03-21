@@ -7,9 +7,7 @@
 
 class SignInRequest {
     public function __construct( $api_request = array() ) {
-
-
-        
+        $results = '';
         if ( ! empty( $req ) ) {
 
             $username_gen = $api_request[1] . rand();
@@ -44,13 +42,15 @@ class SignInRequest {
                     if ( get_user_meta( $user->id, '_user_security_pin_g8js3', true ) == $api_request[3] ) {
                         $results .= "|SP|" . $user->id . "|SP|nup|" . md5( GA_API_HASH . get_user_meta( $user->id, '_user_security_pin_g8js3', true ) );
                     } else {
-                        $results = 'Incorrect PIN given for user';
+                        $results = '0|SP|Incorrect PIN given for user';
                     }
                 } else {
-                    $results = 'Give customer was not found';
+                    $results = '0|SP|Give customer was not found';
                 }
 
             }
         }
+        echo $results;
+        exit();
     }
 }
