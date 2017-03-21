@@ -13,22 +13,56 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 require __DIR__ . '/vendor/autoload.php';
+require __DIR__ . '/includes/constants.php';
 
 class Give_App_API {
-	public $thehash = '5kdj8ls';
-	private $purl;
+    public function __construct() {
 
-	public function __construct() {
+        if ( ! class_exists( 'Give' ) ) {
+            return;
+        }
+
 		add_action( 'init', array( $this, 'add_endpoint' ) );
 		add_action( 'init', array( $this, 'add_history_endpoint' ) );
 		add_action( 'template_redirect', array( $this, 'choose_endpoint' ) );
 	}
 
+    public function add_endpoints( $rewrite_rules ) {
+        add_rewrite_endpoint( 'give-app-api', EP_ALL );
+
+        if ( ! get_option( 'add_endpoint_give_app_api' ) ) {
+            add_option( 'add_endpoint_give_app_api', true );
+            flush_rewrite_rules();
+        }
+
+        add_rewrite_endpoint( 'give-app-history', EP_ALL );
+
+        if ( ! get_option( 'add_endpoint_give_app_history' ) ) {
+            add_option( 'add_endpoint_give_app_history', true );
+            flush_rewrite_rules();
+        }
+    }
+
 	public function choose_endpoint() {
-		global $wp_query;
+        global $wp_query;
+        if ( ! isset( $wp_query->query_vars['give-app-api'] ) ) {
+            return;
+        }
+
 		if ( isset( $wp_query->query_vars['give-app-api'] ) ) {
-			$this->give_app_api_return();
+            $api_request = explode( '/', $wp_query->query_vars['give-app-api'] );
+            switch ( $api_request[0] ) {
+                case 'register' || 'login' :
+                    include __DIR__ . '/classes/signinrequest.php';
+                    $signin = new SignInRequest();
+                    break;
+                case 'donate' :
+                    include __DIR__ . '/classes/formrequest.php';
+                    $signin = new SignInRequest();
+                    break;
+            }
 		}
+
 		if ( isset( $wp_query->query_vars['give-app-history'] ) ) {
 			$this->give_app_history_return();
 		}
@@ -41,7 +75,6 @@ class Give_App_API {
 	public function give_app_api_return() {
 		ob_start();
 		global $wp_query;
-		global $wpdb;
 		$results = '';
 
 		if ( ! isset( $wp_query->query_vars['give-app-api'] ) ) {
@@ -59,36 +92,6 @@ class Give_App_API {
 
 			/** REGISTER A NEW USER FROM APP HOME SCREEN */
 			if ( 'register' == $api_request[0] ) {
-				$username_gen = $api_request[1] . rand();
-				$user_id      = username_exists( $username_gen );
-				if ( ! $user_id and email_exists( $api_request[2] ) == false ) {
-					$results         = Give()->customers->add( array(
-						'email' => $api_request[2],
-						'name'  => str_replace( '%20', '', $api_request[1] )
-					) );
-					$real_name       = explode( '%20', $api_request[1] );
-					$first_name      = $real_name[0];
-					$last_name       = ( isset( $real_name[1] ) ? $real_name[1] : 'Lastname' );
-					$random_password = wp_generate_password( $length = 12, $include_standard_special_chars = false );
-					$user_id         = wp_create_user( $username_gen, $random_password, $api_request[2] );
-					update_user_meta( $user_id, '_user_security_pin_g8js3', $api_request[3] );
-					update_user_meta( $user_id, 'first_name', $first_name );
-					update_user_meta( $user_id, 'last_name', $last_name );
-					$results .= "|SP|" . $user_id . "|SP|" . $random_password;
-				} else {
-					$customers = Give()->customers->get_customers( array( 'email' => $api_request[2] ) );
-					if ( isset( $customers[0] ) ) {
-						$results = $customers[0]->id;
-						$user    = get_user_by( 'email', $api_request[2] );
-						if ( get_user_meta( $user->id, '_user_security_pin_g8js3', true ) == $api_request[3] ) {
-							$results .= "|SP|" . $user->id . "|SP|nup|" . md5( $this->thehash . get_user_meta( $user->id, '_user_security_pin_g8js3', true ) );
-						} else {
-							$results = 0;
-						}
-					} else {
-						$results = 0;
-					}
-				}
 			}
 
 			/** DISPLAY CUSTOMER FORM */
@@ -208,24 +211,6 @@ class Give_App_API {
 		echo json_encode( $donations_return );
 
 		exit;
-	}
-
-	public function add_endpoint( $rewrite_rules ) {
-		add_rewrite_endpoint( 'give-app-api', EP_ALL );
-
-		if ( ! get_option( 'add_endpoint_give_app_api' ) ) {
-			add_option( 'add_endpoint_give_app_api', true );
-			flush_rewrite_rules();
-		}
-	}
-
-	public function add_history_endpoint( $rewrite_rules ) {
-		add_rewrite_endpoint( 'give-app-history', EP_ALL );
-
-		if ( ! get_option( 'add_endpoint_give_app_history' ) ) {
-			add_option( 'add_endpoint_give_app_history', true );
-			flush_rewrite_rules();
-		}
 	}
 }
 
