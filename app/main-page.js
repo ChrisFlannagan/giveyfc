@@ -4,7 +4,7 @@ var observable = require("data/observable");
 var frameModule = require("ui/frame");
 var pageData = new observable.Observable();
 var gestures = require("ui/gestures");
-
+var dialogs = require("ui/dialogs");
 var md5 = require('js-md5');
 
 var firstName = '';
@@ -42,6 +42,7 @@ exports.loaded = function(args) {
     pageData.set("lastName", lastName);
     pageData.set("userEmail", userEmail);
     pageData.set("userPin", userPin);
+    pageData.set("phoneNum", global.phone);
     page.bindingContext = pageData;
 };
 
@@ -53,35 +54,45 @@ exports.closeKeybd = function() {
 };
 
 exports.saveUser = function() {
-    if(pageData.get("firstName") != '' && pageData.get("lastName") != "" && pageData.get("userEmail") != "" && pageData.userPin.length == 4) {
-    console.log("Sending: " + global.giveurl + "/give-app-api/register/" + pageData.get("firstName").replace(" ", "%20") + "%20" + pageData.get("lastName").replace(" ", "%20") + "/" + pageData.get("userEmail") + "/" + md5(pageData.userPin+global.hash) );
-        fetch(global.giveurl + "/give-app-api/register/" + pageData.get("firstName").replace(" ", "%20") + "%20" + pageData.get("lastName").replace(" ", "%20") + "/" + pageData.get("userEmail") + "/" + pageData.get("userPin") , {
-            method: "GET",
-            body: '',
-            headers: {
-                "Content-Type": "application/x-www-form-urlencoded; charset=UTF-8"
-            }
-        })
+    if(page.getViewById("signInBtn").text != "Please wait ... ") {
+        page.getViewById("signInBtn").text = "Please wait ... ";
+        if (pageData.get("firstName") != '' && pageData.get("lastName") != "" && pageData.get("userEmail") != "" && pageData.userPin.length == 4) {
+            var _url = global.giveurl + "/give-app-api/register/" + pageData.get("firstName").replace(" ", "%20") + "%20" + pageData.get("lastName").replace(" ", "%20") + "/" + pageData.get("userEmail") + "/" + pageData.userPin;
+            console.log("Sending: " + _url);
+
+            fetch(_url, {
+                method: "GET",
+                body: '',
+                headers: {
+                    "Content-Type": "application/x-www-form-urlencoded; charset=UTF-8"
+                }
+            })
             .then(handleErrors)
-            .then(function(data) {
-                console.log(data);
+            .then(response => {return response.json();})
+            .then(function (data) {
                 console.dump(data);
-                if(data._bodyInit != "success0") {
-                    console.log("New ID: " + data._bodyInit.replace("success", ""));
+                if (data.success == '1') {
+
                     appSettings.setString("firstName", pageData.get("firstName"));
                     appSettings.setString("lastName", pageData.get("lastName"));
                     appSettings.setString("userEmail", pageData.get("userEmail"));
                     appSettings.setString("userPin", pageData.get("userPin"));
-                    var getIDs = data._bodyInit.replace("success", "").split("|SP|");
-                    appSettings.setString("giveID", getIDs[0]);
-                    appSettings.setString("userID", getIDs[1]);
-                    appSettings.setString("userPass", getIDs[2]);
+                    appSettings.setString("userPass", pageData.get("userPin")); // backwards compat
+
+                    appSettings.setString("giveID", data.giveid);
+                    appSettings.setString("userID", data.userid);
                     appSettings.setBoolean("logged", true);
+
                     home();
+
                 } else {
-                    console.log(data)
+                    dialogs.alert(data.msg).then(function () {
+                        console.log("Dialog closed!");
+                    });
                 }
+                page.getViewById("signInBtn").text = "Sign In";
             });
+        }
     }
 };
 

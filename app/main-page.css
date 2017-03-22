@@ -7,3 +7,10 @@ TextField {
     font-size: 20;
     border-width: 1;
 }
+.home-phone {
+    text-align: center;
+    color: #5a9cff;
+    font-size: 24;
+    font-weight: bold;
+    padding: 10;
+}

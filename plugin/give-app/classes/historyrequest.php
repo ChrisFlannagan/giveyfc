@@ -6,7 +6,7 @@
 
 class HistoryRequest
 {
-    public function __construct( $api_request )
+    public function __construct( $api_request = array() )
     {
         $userid = $api_request[0];
         $pin = $api_request[1];
@@ -24,7 +24,7 @@ class HistoryRequest
                 endif;
                 $donations_return[] = array(
                     'id' => give_get_payment_number( $post->ID ),
-                    'data' => date_i18n(get_option( 'date_format' ), strtotime( get_post_field( 'post_date', $post->ID) ) ),
+                    'data' => date_i18n( get_option( 'date_format' ), strtotime( get_post_field( 'post_date', $post->ID) ) ),
                     'amt' => give_currency_filter( give_format_amount( give_get_payment_amount( $post->ID ) ) ),
                     'type' => $type,
                 );

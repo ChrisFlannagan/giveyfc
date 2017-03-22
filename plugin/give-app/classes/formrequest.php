@@ -8,7 +8,7 @@
 class FormRequest {
     public function __construct( $api_request = array() ) {
         $results = '';
-        $form = '1786';
+        $form = ( isset( $api_request[4]) ? intval( $api_request[4] ) : '1786' );
         if ( intval( $api_request[1] ) ) {
             ?>
             <!DOCTYPE html>
@@ -33,9 +33,25 @@ class FormRequest {
                 <?php wp_head(); ?>
             </head>
             <body>
-            <div id="container">
+                <div class="give-app-api form">
+                    <div id="allforms">
+                        <select name="theforms" id="selectform">
+                            <?php
+                            $form_list = get_posts( array(
+                                'post_type'        => 'give_forms',
+                                'posts_per_page'   => -1,
+                                'orderby' => 'post_title',
+                                'order' => 'ASC',
+                            ) );
 
-                <h3 style="color: #ccc;">Give to EAYFC</h3>
+                            if ( $form_list ) : foreach ( $form_list as $form_info ) : ?>
+                                <option value="<?php echo $form_info->ID; ?>"<?php
+                                if ( strval( $form_info->ID ) == $api_request[4] ) : ?>
+                                    selected="selected"
+                                <?php endif; ?>><?php echo $form_info->post_title; ?></option>
+                            <?php endforeach; endif; ?>
+                        </select>
+                    </div>
                 <?php
                 // Log the user into their WordPress account
                 $user_id       = $api_request[1];
@@ -57,10 +73,9 @@ class FormRequest {
                     endif;
                 endif;
 
-                echo do_shortcode( '[give_form id="' . esc_attr( $form ) . ']"]' );
+                echo do_shortcode( '[give_form id="' . esc_attr( $form ) . '"]' );
                 ?>
 
-            </div><!-- #container -->
             <style>
                 <?php if ( $fname != '' && $lname != '' && $email != '' ) : ?>
                 #give_checkout_user_info {
@@ -69,10 +84,12 @@ class FormRequest {
             <?php endif; ?>
             </style>
             <?php echo $this->remove_template_parts(); ?>
-            <?php wp_foot(); ?>
+            <?php wp_footer(); ?>
+            </div>
             </body>
             </html>
             <?php
+            exit();
         }
     }
 
@@ -87,7 +104,73 @@ class FormRequest {
                 font-family: Arial, SansSerif;
                 text-align: center;
             }
+            #allforms {
+                margin-bottom: 30px;
+            }
 
+            /** DONATION AMOUNT INPUTS  */
+            form[id*=give-form] .give-donation-amount .give-currency-symbol {
+                background-color: #f2f2f2;
+                border-top: 1px solid #ccc;
+                border-bottom: 1px solid #ccc;
+                color: #333;
+                margin: 0;
+                padding: 0 12px;
+                height: 51px;
+                line-height: 35px;
+                font-size: 48px;
+                -webkit-box-sizing: border-box;
+                -moz-box-sizing: border-box;
+                box-sizing: border-box;
+                float: none;
+            }
+            form[id*=give-form] .give-donation-amount #give-amount, form[id*=give-form] .give-donation-amount #give-amount-text {
+                border: 1px solid #ccc;
+                background: #FFF;
+                border-radius: 0;
+                height: 60px;
+                line-height: 35px;
+                padding: 0 12px;
+                margin: 0;
+                font-size: 42px;
+                -webkit-box-sizing: border-box;
+                -moz-box-sizing: border-box;
+                box-sizing: border-box;
+                min-width: 125px;
+                float: none;
+            }
+
+
+            html form[id*=give-form] #give-final-total-wrap .give-final-total-amount {
+                color: #333;
+            }
+            form[id*=give-form] .give-donation-amount #give-amount, form[id*=give-form] .give-donation-amount #give-amount-text {
+                display: inline-block;
+            }
+            .give-submit-button-wrap .give-submit, [id^=give-user-login-submit] .give-submit {
+                border: solid 3px #fff;
+                background: #0c6e69;
+                color: #fff;
+            }
+            .give-recurring-donors-choice {
+                border: 1px solid #333;
+                background: #333;
+            }
+            #give_purchase_submit {
+                text-align: center;
+            }
+            #give-final-total-wrap {
+                text-align: center;
+            }
+            .give-app-api.form {
+                background: #333;
+                padding: 30px;
+                left: 0;
+                top: 0;
+                position: absolute;
+                width: 100%;
+                z-index: 99999;
+            }
             legend {
                 display: none;
             }

@@ -13,7 +13,7 @@ exports.loaded = function(args){
 // Initializes plugin with a webView
 function setupWebViewInterface(page){
     utilityModule.openUrl(global.giveurl + "/give-app-api/donate/" +
-        appSettings.getString("userID") + "/" + appSettings.getString("giveID") + "/" + appSettings.getString("userPin"));
+        appSettings.getString("userID") + "/" + appSettings.getString("giveID") + "/" + appSettings.getString("userPin") + "/" + global.defaultform);
     /*
     console.log(appSettings.getString("giveID"));
     var webView = page.getViewById('webView');

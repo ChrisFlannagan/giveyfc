@@ -11,7 +11,9 @@
         <TextField id="user-email" text="{{ userEmail }}" hint="Email Address" keyboardType="email" autocorrect="false" autocapitalizationType="none" />
         <Label text="Security PIN (4 digits)" />
         <TextField id="user-pin" text="{{ userPin }}" keyboardType="phone" />
-        <Button row="2" class="big-yellow-btns" text="Sign In" tap="saveUser" />
+        <Button row="2" id="signInBtn" class="big-yellow-btns" text="Sign In" tap="saveUser" />
+        <Label text="{{ phoneNum }}" class="home-phone" />
+        <Label textWrap="true" text="If you already have an account and need to rest your PIN please call us at the above number" class="instructions" />
       </StackLayout>
     </GridLayout>
 </Page>

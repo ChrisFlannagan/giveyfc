@@ -17,29 +17,28 @@ require __DIR__ . '/includes/constants.php';
 
 class Give_App_API {
     public function __construct() {
-
         if ( ! class_exists( 'Give' ) ) {
             return;
         }
 
-		add_action( 'init', array( $this, 'add_endpoint' ) );
-		add_action( 'init', array( $this, 'add_history_endpoint' ) );
+		add_action( 'init', array( $this, 'add_endpoints' ) );
 		add_action( 'template_redirect', array( $this, 'choose_endpoint' ) );
 
         add_action( 'init', array( $this, 'add_tribe_to_json_api' ), 30 );
+        add_filter('show_admin_bar', '__return_false');
 	}
 
     public function add_endpoints( $rewrite_rules ) {
         add_rewrite_endpoint( 'give-app-api', EP_ALL );
 
-        if ( ! get_option( 'add_endpoint_give_app_api' ) ) {
+        if ( ! get_option( 'add_endpoint_give_app_api' || isset( $_GET['reset_gapp'] ) ) ) {
             add_option( 'add_endpoint_give_app_api', true );
             flush_rewrite_rules();
         }
 
         add_rewrite_endpoint( 'give-app-history', EP_ALL );
 
-        if ( ! get_option( 'add_endpoint_give_app_history' ) ) {
+        if ( ! get_option( 'add_endpoint_give_app_history' ) || isset( $_GET['reset_gapp'] ) ) {
             add_option( 'add_endpoint_give_app_history', true );
             flush_rewrite_rules();
         }
@@ -48,11 +47,11 @@ class Give_App_API {
 	public function choose_endpoint() {
         global $wp_query;
         $api_request = array();
-
-        if ( ! isset( $wp_query->query_vars['give-app-api'] ) ) {
+        if ( isset( $wp_query->query_vars['give-app-api'] ) ) {
             $api_request = explode( '/', $wp_query->query_vars['give-app-api'] );
             switch ( $api_request[0] ) {
-                case 'register' || 'login' :
+                case 'register':
+                case 'login' :
                     include __DIR__ . '/classes/signinrequest.php';
                     $signin = new SignInRequest( $api_request );
                     break;
@@ -61,12 +60,14 @@ class Give_App_API {
                     $form = new FormRequest( $api_request );
                     break;
             }
+            return;
         }
 
-        if ( ! isset( $wp_query->query_vars['give-app-history'] ) ) {
+        if ( isset( $wp_query->query_vars['give-app-history'] ) ) {
             include __DIR__ . '/classes/historyrequest.php';
             $api_request = explode( '/', $wp_query->query_vars['give-app-history'] );
-            $history = new HistoryRequest();
+            $history = new HistoryRequest( $api_request );
+            return;
         }
 
         return;
@@ -78,6 +79,8 @@ class Give_App_API {
     }
 }
 
-if ( class_exists( 'Give_App_API' ) ) {
-	$Give_App_API = new Give_App_API();
-}
+add_action( 'plugins_loaded', function() {
+    if ( class_exists( 'Give_App_API' ) ) {
+        $Give_App_API = new Give_App_API();
+    }
+});
