@@ -63,8 +63,8 @@ exports.goLink = function(args) {
 };
 
 exports.goDonate = function() {
-    var topmost = frameModule.topmost();
-    topmost.navigate("views/donate/donate");
+    utilityModule.openUrl(global.giveurl + "/give-app-api/donate/" +
+        appSet.getString("userID") + "/" + appSet.getString("giveID") + "/" + appSet.getString("userPin") + "/" + global.defaultform + '/v2' );
 };
 
 exports.goHistory = function() {

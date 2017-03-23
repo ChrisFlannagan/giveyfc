@@ -5,6 +5,7 @@ var page;
 var frameModule = require("ui/frame");
 var gradients = require("~/grad.js");
 var utilityModule = require("utils/utils");
+var appSettings = require("application-settings");
 
 exports.loaded = function(args) {
     page = args.object;
@@ -17,8 +18,8 @@ exports.goPaymentMethods = function() {
 };
 
 exports.goDonate = function() {
-    var topmost = frameModule.topmost();
-    topmost.navigate("views/donate/donate");
+    utilityModule.openUrl(global.giveurl + "/give-app-api/donate/" +
+        appSettings.getString("userID") + "/" + appSettings.getString("giveID") + "/" + appSettings.getString("userPin") + "/" + global.defaultform + '/v2' );
 };
 
 exports.goHistory = function() {
