@@ -47,6 +47,13 @@ class SignInRequest {
                         $results['giveid'] = (String)$customers[0]->id;
                         $results['success'] = '1';
                     } else {
+
+                        /** Backwards compatible, remove in three months */
+                        if ( ! isset( $api_request[4] ) && get_user_meta( $user->id, '_user_security_pin_g8js3', true ) == $api_request[3] ) {
+                            $results['userid'] = (String)$user->id;
+                            $results['giveid'] = (String)$customers[0]->id;
+                            $results['success'] = '1';
+                        }
                         $results['msg'] = 'Incorrect PIN given for user';
                     }
                 } else {
@@ -55,8 +62,13 @@ class SignInRequest {
 
             }
         }
-
-        wp_send_json( $results );
+        if ( isset( $api_request[4] ) && 'v2' == $api_request[4] ) {
+            wp_send_json($results);
+        } elseif ( $results['success'] == 0 ) {
+            echo '0';
+        } elseif ( $results['success'] == 1 ) {
+            echo $results['giveid'] . '|SP|' . $results['userid'] . '|SP|nup' . $results['success'];
+        }
         exit();
     }
 }

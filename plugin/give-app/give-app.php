@@ -14,14 +14,16 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 require __DIR__ . '/vendor/autoload.php';
 require __DIR__ . '/includes/constants.php';
+require __DIR__ . '/includes/functions.php';
 
 class Give_App_API {
+
     public function __construct() {
         if ( ! class_exists( 'Give' ) ) {
             return;
         }
 
-		add_action( 'init', array( $this, 'add_endpoints' ) );
+		add_action( 'init', array( $this, 'add_endpoints' ), 2 );
 		add_action( 'template_redirect', array( $this, 'choose_endpoint' ) );
 
         add_action( 'init', array( $this, 'add_tribe_to_json_api' ), 30 );
@@ -57,7 +59,7 @@ class Give_App_API {
                     break;
                 case 'donate' :
                     include __DIR__ . '/classes/formrequest.php';
-                    $form = new FormRequest( $api_request );
+                    $form = new FormRequest( $api_request  );
                     break;
             }
             return;

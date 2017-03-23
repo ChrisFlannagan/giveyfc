@@ -57,7 +57,7 @@ exports.saveUser = function() {
     if(page.getViewById("signInBtn").text != "Please wait ... ") {
         page.getViewById("signInBtn").text = "Please wait ... ";
         if (pageData.get("firstName") != '' && pageData.get("lastName") != "" && pageData.get("userEmail") != "" && pageData.userPin.length == 4) {
-            var _url = global.giveurl + "/give-app-api/register/" + pageData.get("firstName").replace(" ", "%20") + "%20" + pageData.get("lastName").replace(" ", "%20") + "/" + pageData.get("userEmail") + "/" + pageData.userPin;
+            var _url = global.giveurl + "/give-app-api/register/" + pageData.get("firstName").replace(" ", "%20") + "%20" + pageData.get("lastName").replace(" ", "%20") + "/" + pageData.get("userEmail") + "/" + pageData.userPin + "/v2";
             console.log("Sending: " + _url);
 
             fetch(_url, {
