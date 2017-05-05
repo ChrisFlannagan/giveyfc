@@ -60,17 +60,10 @@ exports.saveUser = function() {
             var _url = global.giveurl + "/give-app-api/register/" + pageData.get("firstName").replace(" ", "%20") + "%20" + pageData.get("lastName").replace(" ", "%20") + "/" + pageData.get("userEmail") + "/" + pageData.userPin + "/v2";
             console.log("Sending: " + _url);
 
-            fetch(_url, {
-                method: "GET",
-                body: '',
-                headers: {
-                    "Content-Type": "application/x-www-form-urlencoded; charset=UTF-8"
-                }
-            })
-            .then(handleErrors)
-            .then(response => {return response.json();})
+            fetch(_url)
+            .then(response => { return response.json(); })
             .then(function (data) {
-                console.dump(data);
+                console.log(data);
                 if (data.success == '1') {
 
                     appSettings.setString("firstName", pageData.get("firstName"));
