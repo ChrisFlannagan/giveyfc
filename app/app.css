@@ -1,22 +1,9 @@
-﻿.title {
+﻿@import '~/nativescript-theme-core/css/core.light.css';
+
+.title {
     font-size: 30;
     horizontal-align: center;
     margin: 20;
-}
-
-Button {
-    font-size: 15;
-    horizontal-align: center;
-}
-
-.big-yellow-btns {
-    width: 100%;
-    background-color: #333;
-    color: #ffd234;
-    height: 80;
-    border-width: 2;
-    font-size:22;
-    border-color: #ffd234;
 }
 
 .message {

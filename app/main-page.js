@@ -85,6 +85,36 @@ exports.saveUser = function() {
                 }
                 page.getViewById("signInBtn").text = "Sign In";
             });
+        } else {
+            dialogs.alert("All fields are required");
+            page.getViewById("signInBtn").text = "Sign In";
+        }
+    }
+};
+
+exports.resetPin = function() {
+    if(page.getViewById("emailNewPin").text != "Please wait...") {
+        page.getViewById("emailNewPin").text = "Please wait...";
+        if(pageData.get("userEmail") != "") {
+            var _url = global.giveurl + "/give-app-resetpin/" + pageData.get("userEmail");
+            console.log("Sending: " + _url);
+            fetch(_url)
+            .then(response => { return response.json(); })
+            .then(function (data) {
+                console.log(data);
+                if (data.success == '1') {
+                    dialogs.alert("Check your email for new Pin Number");
+                    page.getViewById("emailNewPin").text = "Reset &amp; Email New Pin";
+                } else {
+                    dialogs.alert(data.msg).then(function () {
+                        console.log("Dialog closed!");
+                    });
+                }
+                page.getViewById("signInBtn").text = "Sign In";
+            });
+        } else {
+            dialogs.alert("Please enter an email address");
+            page.getViewById("emailNewPin").text = "Reset &amp; Email New Pin";
         }
     }
 };

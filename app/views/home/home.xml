@@ -12,10 +12,10 @@
                 </ListView.itemTemplate>
             </ListView>
             <GridLayout row="3" rows="*,*">
-                <Button row="0" class="big-yellow-btns" text="Events" tap="goEvent" />
+                <Button row="0" class="btn btn-primary" text="Events" tap="goEvent" />
                 <GridLayout row="1" columns="*,*">
-                    <Button col="0" class="big-yellow-btns" text="Donate" tap="goDonate" />
-                    <Button col="1" class="big-yellow-btns" text="History" tap="goHistory" />
+                    <Button col="0" class="btn btn-primary" text="Donate" tap="goDonate" />
+                    <Button col="1" class="btn btn-primary" text="History" tap="goHistory" />
                 </GridLayout>
             </GridLayout>
         </GridLayout>

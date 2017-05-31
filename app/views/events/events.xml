@@ -20,8 +20,8 @@
                 <Label class="hr2" />
             </ListView>
             <GridLayout row="3" columns="*,*">
-                <Button col="0" class="big-yellow-btns" text="Donate" tap="goDonate" />
-                <Button col="1" class="big-yellow-btns" text="History" tap="goHistory" />
+                <Button col="0" class="btn btn-primary" text="Donate" tap="goDonate" />
+                <Button col="1" class="btn btn-primary" text="History" tap="goHistory" />
             </GridLayout>
         </GridLayout>
     </StackLayout>

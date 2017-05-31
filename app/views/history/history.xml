@@ -15,7 +15,7 @@
                 <Label class="hr2" />
             </ListView>
             <StackLayout row="2">
-                <Button class="big-yellow-btns" text="Donate" tap="goDonate" />
+                <Button class="btn btn-primary" text="Donate" tap="goDonate" />
             </StackLayout>
         </GridLayout>
     </StackLayout>

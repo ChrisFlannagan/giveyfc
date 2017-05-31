@@ -1,19 +1,21 @@
 <Page xmlns="http://schemas.nativescript.org/tns.xsd" loaded="loaded">
-  <GridLayout rows="80,*">
-    <Image src="~/imgs/logo.jpg" row="0" />
+  <ScrollView height="100%">
+    <GridLayout rows="80,*">
+      <Image src="~/imgs/logo.jpg" row="0" />
       <StackLayout row="1">
-        <Button tap="closeKeybd" class="nrm-btn" text="Close Keyboard" />
-        <Label text="Your First Name" />
+        <Button tap="closeKeybd" class="btn btn-outline" text="Close Keyboard" />
+        <Label text="Your First Name" class="text-primary" />
         <TextField id="user-name" autocorrect="false" text="{{ firstName }}" />
-        <Label text="Your Last Name" />
+        <Label text="Your Last Name" class="text-primary" />
         <TextField id="user-lname" autocorrect="false" text="{{ lastName }}" />
-        <Label text="Your Email" />
+        <Label text="Your Email" class="text-primary" />
         <TextField id="user-email" text="{{ userEmail }}" hint="Email Address" keyboardType="email" autocorrect="false" autocapitalizationType="none" />
-        <Label text="Security PIN (4 digits)" />
+        <Label text="Security PIN (4 digits)" class="text-primary" />
         <TextField id="user-pin" text="{{ userPin }}" keyboardType="phone" />
-        <Button row="2" id="signInBtn" class="big-yellow-btns" text="Sign In" tap="saveUser" />
-        <Label text="{{ phoneNum }}" class="home-phone" />
-        <Label textWrap="true" text="If you already have an account and need to rest your PIN please call us at the above number" class="instructions" />
+        <Button row="2" id="signInBtn" class="btn btn-primary" text="Sign In" tap="saveUser" />
+        <Label text="{{ phoneNum }}" class="text-primary text-center" />
+        <Button id="emailNewPin" class="btn btn-outline" text="Reset &amp; Email New Pin" tap="resetPin" />
       </StackLayout>
     </GridLayout>
+  </ScrollView>
 </Page>
