@@ -7,11 +7,13 @@ function give_stripe_save_credit_card_form( $form_id ) {
         $pk = give_get_option( 'test_publishable_key_save' );
     }
 
+    $customer_id = get_user_meta( get_current_user_id(), '_give_stripe_save_customer_id', true );
+
     ob_start();
 
     do_action( 'give_before_cc_fields', $form_id );
 
-    if ( is_user_logged_in() ) : ?>
+    if ( is_user_logged_in() && $customer_id == '' ) : ?>
 
     <div class="give-recurring-donors-choice">
 
@@ -93,6 +95,16 @@ function give_stripe_save_credit_card_form( $form_id ) {
 
     </fieldset>
 
+    <script>var saved_customer_id = false;</script>
+    <?php if ( $customer_id != '' ) : ?>
+        <style>
+            #give_cc_fields {
+                display: none;
+            }
+        </style>
+        <script>var saved_customer_id = true;</script>
+    <?php endif; ?>
+
     <script type="text/javascript" src="https://js.stripe.com/v2/"></script>
     <script type="text/javascript">
         Stripe.setPublishableKey('<?php echo $pk; ?>');
@@ -100,15 +112,17 @@ function give_stripe_save_credit_card_form( $form_id ) {
             $(function () {
                 var $form = $('#give-form-<?php echo $form_id; ?>');
                 $form.submit(function (event) {
-                    // Disable the submit button to prevent repeated clicks:
-                    $form.find('.submit').prop('disabled', true);
+                    if(!saved_customer_id) {
+                        // Disable the submit button to prevent repeated clicks:
+                        $form.find('.submit').prop('disabled', true);
 
-                    $form.addClass('stripe-checkout');
+                        $form.addClass('stripe-checkout');
 
-                    give_stripe_process_card($form);
+                        give_stripe_process_card($form);
 
-                    // Prevent the form from being submitted:
-                    return false;
+                        // Prevent the form from being submitted:
+                        return false;
+                    }
                 });
             });
             function stripeResponseHandler(status, response) {

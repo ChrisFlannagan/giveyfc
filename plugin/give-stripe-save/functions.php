@@ -49,6 +49,7 @@ function process_donation( $donation_data ) {
     if ( give_is_test_mode() ) {
         $sk = give_get_option( 'test_secret_key_save' );
     }
+
     \Stripe\Stripe::setApiKey( $sk );
     \Stripe\Stripe::setAppInfo("WordPress Give Gateway Save Customer", "1.0", "https://whoischris.com");
 
@@ -57,14 +58,18 @@ function process_donation( $donation_data ) {
     if ( '' != $customer_id ) {
         try {
             $charge = \Stripe\Charge::create( array(
-                    "amount"   => intval( $_POST['amount'] * 100 ), // Amount in cents
+                    "amount"   => intval( $donation_data['price'] * 100 ), // Amount in cents
                     "currency" => "usd",
                     "customer" => $customer_id,
                 )
             );
-            return array(true, $charge);
-        } catch (\Stripe\Error\Card $e) {
-            return array(false, $e->getMessage());
+
+            return array( true, $charge );
+        } catch ( \Stripe\Error\Card $e ) {
+
+            delete_user_meta( get_current_user_id(), '_get_stripe_save_customer_id' );
+
+            return array( false, $e->getMessage() );
         }
     } elseif ( isset( $donation_data['savecard'] ) && is_user_logged_in() ) {
         try {
@@ -75,8 +80,6 @@ function process_donation( $donation_data ) {
                 )
             );
 
-            update_user_meta( get_current_user_id(), '_give_stripe_save_customer_id', $customer->id );
-
             // Charge the Customer instead of the card
             $charge = \Stripe\Charge::create( array(
                     "amount"   => intval( $donation_data['price'] * 100 ), // Amount in cents
@@ -84,9 +87,12 @@ function process_donation( $donation_data ) {
                     "customer" => $customer->id,
                 )
             );
-            return array(true, $charge);
-        } catch (\Stripe\Error\Card $e) {
-            return array(false, $e->getMessage());
+
+            update_user_meta( get_current_user_id(), '_give_stripe_save_customer_id', $customer->id );
+
+            return array( true, $charge );
+        } catch ( \Stripe\Error\Card $e ) {
+            return array( false, $e->getMessage() );
         }
     } else {
         try {
@@ -97,9 +103,9 @@ function process_donation( $donation_data ) {
                     "description" => "App Donation",
                 )
             );
-            return array(true, $charge);
-        } catch (\Stripe\Error\Card $e) {
-            return array(false, $e->getMessage());
+            return array( true, $charge );
+        } catch ( \Stripe\Error\Card $e ) {
+            return array( false, $e->getMessage() );
         }
     }
 }
