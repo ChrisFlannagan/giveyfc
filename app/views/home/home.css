@@ -1,13 +1,17 @@
 .stack-holder {
     background-color: rgba(255, 0, 0, 0.0);
+    border: 0;
+    border-bottom: 0;
 }
 .post-title {
+    color: #994a28;
     width: 100%;
     padding: 5;
+    font-size: 25;
     background-color: rgba(255, 0, 0, 0.0);
 }
 .hr2 {
-    height: 2;
+    height: 15;
     background-color: #333;
 }
 .view-article {
