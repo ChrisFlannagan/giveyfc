@@ -58,8 +58,13 @@ function loadLatest() {
 
 exports.goLink = function(args) {
     var item = args.view.bindingContext;
-    console.log(item.thelink);
-    utilityModule.openUrl(item.thelink);
+    var navigationOptions={
+        moduleName:"views/event/event",
+        context:{
+            post_id: item.eventID
+        }
+    };
+    frameModule.topmost().navigate(navigationOptions);
 };
 
 exports.goDonate = function() {

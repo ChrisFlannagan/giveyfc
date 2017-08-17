@@ -1,0 +1,20 @@
+.stack-holder {
+    background-color: rgba(255, 0, 0, 0.0);
+    border: 0;
+    border-bottom: 0;
+}
+.post-title {
+    width: 100%;
+    padding: 5;
+    font-size: 25;
+    background-color: rgba(255, 0, 0, 0.0);
+}
+.hr2 {
+    height: 5;
+    background-color: #333;
+}
+.view-article {
+    color: #993c33;
+    padding: 5;
+    background-color: rgba(255, 0, 0, 0.0);
+}

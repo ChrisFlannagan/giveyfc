@@ -41,6 +41,7 @@ class Give_App_API {
 		add_action( 'template_redirect', array( $this, 'choose_endpoint' ) );
 
         add_action( 'init', array( $this, 'add_tribe_to_json_api' ), 30 );
+	    add_action( 'rest_api_init', array( $this, 'slug_register_event_fields' ) );
         add_filter('show_admin_bar', '__return_false');
 	}
 
@@ -106,6 +107,30 @@ class Give_App_API {
         global $wp_post_types;
         $wp_post_types['tribe_events']->show_in_rest = true;
     }
+
+    function slug_register_event_fields() {
+    	register_rest_field( 'tribe_events',
+		    'address',
+	        [
+	        	'get_callback' => array( $this, 'slug_get_address' ),
+		        'update_callback' => null,
+		        'schema' => null,
+	        ]
+	    );
+    }
+
+	function slug_get_address( $object, $field_name, $request ) {
+    	$address = '';
+    	$venue_id = intval( get_post_meta( $object[ 'id' ], '_EventVenueID', true ) );
+		if ( 0 < $venue_id ) {
+			$address = get_post_meta( $venue_id, '_VenueAddress', true );
+			$address .= ', ' . get_post_meta( $venue_id, '_VenueCity', true );
+			$address .= ', ' . get_post_meta( $venue_id, '_VenueState', true );
+			$address .= ' ' . get_post_meta( $venue_id, '_VenueZip', true );
+		}
+
+		 return $address;
+	}
 }
 
 add_action( 'plugins_loaded', function() {

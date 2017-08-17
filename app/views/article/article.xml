@@ -1,0 +1,13 @@
+<Page xmlns="http://schemas.nativescript.org/tns.xsd" loaded="loaded">
+    <ScrollView height="100%">
+        <GridLayout rows="80,*">
+            <Image src="~/imgs/logo.jpg" row="0" />
+            <StackLayout row="1">
+                <Label class="post-title" text="{{ post_title }}" />
+                <HtmlView class="post-content" html="{{ post_content }}" textWrap="true" />
+                <Button class="btn btn-primary" text="Go Back" tap="goBack" />
+                <Button class="btn btn-primary" text="Mark As Read" tap="markRead" />
+            </StackLayout>
+        </GridLayout>
+    </ScrollView>
+</Page>
