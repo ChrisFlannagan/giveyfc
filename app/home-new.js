@@ -9,8 +9,28 @@ var appSettings = require("application-settings");
 
 exports.loaded = function(args) {
     page = args.object;
+
+    if(appSettings.hasKey("logged") && appSettings.hasKey("firstName")) {
+        console.log( appSettings.getString("firstName") );
+        if(appSettings.getBoolean("logged")) {
+            home();
+        }
+    }
+
     loadLatest();
 };
+
+function home() {
+    var navigationOptions={
+        moduleName:"views/home/home",
+        clearHistory:true,
+        context:{
+            logged: true
+        }
+    };
+    frameModule.topmost().navigate(navigationOptions);
+}
+
 
 exports.goPaymentMethods = function() {
     var topmost = frameModule.topmost();
@@ -70,7 +90,8 @@ exports.goLink = function(args) {
     var navigationOptions={
         moduleName:"views/article/article",
         context:{
-            post_id: item.post_id
+            post_id: item.post_id,
+            came_from: 'homenew'
         }
     };
     frameModule.topmost().navigate(navigationOptions);

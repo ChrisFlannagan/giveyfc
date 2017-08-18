@@ -5,7 +5,7 @@
             <ListView row="1" height="80%" items="{{ postList }}" backgroundColor="#FFF">
                 <ListView.itemTemplate>
                     <StackLayout backgroundColor="{{ hasRead }}" class="stack-holder" id="{{ thelink }}" tap="goLink">
-                        <Label class="post-title" color="#005f99" id="{{ labelID }}" text="{{ postName }}" textWrap="true" horizontalAlignment="left" />
+                        <Label class="post-title" id="{{ labelID }}" text="{{ postName }}" textWrap="true" horizontalAlignment="left" />
                         <Label class="btn btn-outline btn-rounded-sm" backgroundColor="#FFF" width="200" textAlignment="center" text="{{  viewArticle }}" />
                         <Label class="hr2" />
                     </StackLayout>

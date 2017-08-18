@@ -73,7 +73,7 @@ function loadArticle( post_id ) {
             }
 
             if ( address != '' ) {
-                mapAddress = address + ', ' + address2;
+                mapAddress = address + ' ' + address2;
             }
 
             pageData.set( 'post_title', post['title']['rendered'] );

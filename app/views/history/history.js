@@ -37,6 +37,10 @@ function loadLatest() {
                 postTitles.push({ postName: "#" + post['id'] + ": " + post['amt'],
                     theDate: post['data'] });
             });
+
+            if(posts.length == 0) {
+                postTitles.push({postName: "You have not made any donations" });
+            }
         });
 }
 exports.goDonate = function() {

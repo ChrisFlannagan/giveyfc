@@ -2,6 +2,7 @@ var ObservableArray = require("data/observable-array").ObservableArray;
 var Observable = require("data/observable").Observable;
 var page;
 var frameModule = require("ui/frame");
+var appSettings = require("application-settings");
 var appSet = require("application-settings");
 var LocalNotifications = require("nativescript-local-notifications");
 
@@ -76,13 +77,35 @@ exports.goLink = function(args) {
 };
 
 exports.goDonate = function() {
-    utilityModule.openUrl(global.giveurl + "/give-app-api/donate/" +
-        appSet.getString("userID") + "/" + appSet.getString("giveID") + "/" + appSet.getString("userPin") + "/" + global.defaultform + '/v2' );
+    if(appSettings.hasKey("logged") && appSettings.hasKey("firstName")) {
+        console.log( appSettings.getString("firstName") );
+        if(appSettings.getBoolean("logged")) {
+            utilityModule.openUrl(global.giveurl + "/give-app-api/donate/" +
+                appSet.getString("userID") + "/" + appSet.getString("giveID") + "/" + appSet.getString("userPin") + "/" + global.defaultform + '/v2' );
+        }
+    } else {
+        var navigationOptions = {
+            clearHistory:true,
+            moduleName: "main-page"
+        };
+        frameModule.topmost().navigate(navigationOptions);
+    }
 };
 
 exports.goHistory = function() {
-    var topmost = frameModule.topmost();
-    topmost.navigate("views/history/history");
+    if(appSettings.hasKey("logged") && appSettings.hasKey("firstName")) {
+        console.log( appSettings.getString("firstName") );
+        if(appSettings.getBoolean("logged")) {
+            var topmost = frameModule.topmost();
+            topmost.navigate("views/history/history");
+        }
+    } else {
+        var navigationOptions = {
+            clearHistory:true,
+            moduleName: "main-page"
+        };
+        frameModule.topmost().navigate(navigationOptions);
+    }
 };
 
 exports.regIt = function(args) {

@@ -6,6 +6,7 @@ var appSettings = require("application-settings");
 
 var pageData;
 var postId;
+var from;
 
 exports.loaded = function(args) {
     page = args.object;
@@ -18,6 +19,7 @@ exports.loaded = function(args) {
     page.bindingContext = pageData;
 
     postId = gotData.post_id;
+    from = gotData.came_from;
 
     loadArticle(gotData.post_id);
 };
@@ -48,12 +50,12 @@ function loadArticle( post_id ) {
 exports.markRead = function() {
     appSettings.setBoolean("read" + postId, true);
     var topmost = frameModule.topmost();
-    topmost.navigate("home-new");
+    topmost.goBack();
 };
 
 exports.goBack = function() {
     var topmost = frameModule.topmost();
-    topmost.navigate("home-new");
+    topmost.goBack();
 };
 
 

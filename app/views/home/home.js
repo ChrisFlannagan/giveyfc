@@ -36,7 +36,9 @@ function loadLatest() {
     var postTitles = new ObservableArray([].map(function(postTitle) {
         return new Observable({
             postName: postTitle,
-            labelID: labelID
+            labelID: labelID,
+            hasRead: hasRead,
+            viewArticle: viewArticle
         });
     }));
     page.bindingContext = {
@@ -56,7 +58,13 @@ function loadLatest() {
             posts.forEach(function(post) {
                 console.log(post['title']['rendered']);
                 var t = post['title']['rendered'].replace("&#8217;", "'").replace("&#8221;", "\"").replace("&#8311;", "-").replace("&#038;", "&");
-                postTitles.push({ postName: t, thelink: post['link'] });
+                var hr = '#FFF';
+                var va = 'View Article';
+                if ( appSettings.hasKey("read" + post['id']) ) {
+                    hr = '#ccc';
+                    va = 'View Article (Read)';
+                }
+                postTitles.push({ postName: t, post_id: post['id'], hasRead: hr, viewArticle: va });
             });
         });
 
@@ -64,8 +72,14 @@ function loadLatest() {
 
 exports.goLink = function(args) {
     var item = args.view.bindingContext;
-    console.log(item.thelink);
-    utilityModule.openUrl(item.thelink);
+    var navigationOptions={
+        moduleName:"views/article/article",
+        context:{
+            post_id: item.post_id,
+            came_from: 'home'
+        }
+    };
+    frameModule.topmost().navigate(navigationOptions);
 };
 
 function handleErrors(response) {
