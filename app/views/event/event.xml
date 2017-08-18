@@ -1,3 +1,17 @@
-<Page xmlns:maps="tns_modules/nativescript-maps/maps.ios.js">
-    <maps:Map latitude="42.7" longitude="23.3" />
+<Page xmlns="http://schemas.nativescript.org/tns.xsd" loaded="loaded">
+    <ScrollView height="100%">
+        <GridLayout rows="80,*">
+            <Image src="~/imgs/logo.jpg" row="0" />
+            <StackLayout row="1">
+                <Label textAlignment="center" class="post-title" text="{{ post_title }}" />
+                <Label textAlignment="center" class="date" text="{{ startdate }}" />
+                <Image src="{{ eventimage }}" row="0" />
+                <Label tap="openMap" textAlignment="center" class="venue" text="{{ venue }}" />
+                <Label tap="openMap" textAlignment="center" class="address" text="{{ address }}" />
+                <Label tap="openMap" textAlignment="center" class="address" text="{{ address2 }}" />
+                <Label tap="openMap" textAlignment="center" class="open-map" text="Open Map" />
+                <Button tap="reminder" backgroundColor="{{ remcolor }}" class="btn btn-outline set-reminder" text="{{ reminder }}" />
+            </StackLayout>
+        </GridLayout>
+    </ScrollView>
 </Page>

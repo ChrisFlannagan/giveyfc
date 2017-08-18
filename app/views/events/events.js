@@ -33,6 +33,14 @@ function loadLatest() {
         .then(handleErrors)
         .then(function(data) {
             var posts = JSON.parse(data._bodyInit);
+            var sortPosts = new Array();
+            posts.sort(function(a, b) {
+                var keyA = a.datesort,
+                    keyB = b.datesort;
+                if(keyA < keyB) return -1;
+                if(keyA > keyB) return 1;
+                return 0;
+            });
             posts.forEach(function(post) {
                 var regImage = "~/imgs/register.jpg";
                 if ( appSet.getNumber( "event" + post['id'] ) == 1 ) {

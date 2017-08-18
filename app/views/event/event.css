@@ -1,4 +1,36 @@
 .post-title {
+    font-size: 30;
+    font-weight: 900;
+    padding: 15;
+    color: #FFF;
+    background-color: #2a62bc;
+    margin-bottom: 0;
+}
+
+.date {
+    padding-top: 0;
+    font-size: 12;
+    padding-bottom: 15;
+    margin-bottom: 0;
+    color: #FFF;
+    background-color: #2a62bc;
+}
+
+.venue {
+    font-size: 22;
+    margin-top: 15;
+    margin-bottom: 10;
+}
+
+.open-map {
+    font-size: 12;
+    color: #2a62bc;
+    text-decoration: underline;
+}
+
+.set-reminder {
+    color: #FFF;
     font-size: 20;
-    padding: 5;
+    font-weight: bold;
+    margin-top: 15;
 }
