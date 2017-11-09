@@ -19,7 +19,7 @@
                 </ListView.itemTemplate>
                 <Label class="hr2" />
             </ListView>
-            <GridLayout row="3" columns="*,*">
+            <GridLayout row="3" columns="*,*" backgroundColor="#acdcff">
                 <Button col="0" class="btn btn-primary" text="Donate" tap="goDonate" />
                 <Button col="1" class="btn btn-primary" text="History" tap="goHistory" />
             </GridLayout>

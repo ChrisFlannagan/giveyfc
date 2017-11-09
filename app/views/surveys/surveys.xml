@@ -1,0 +1,44 @@
+<Page xmlns="http://schemas.nativescript.org/tns.xsd" loaded="loaded">
+    <StackLayout>
+        <GridLayout rows="80,60,*,80">
+            <Image src="~/imgs/logo.jpg" row="0"/>
+            <Label row="1" text="Survey" horizontalAlignment="center" color="#333"/>
+            <!--
+            <ListView id="mainList" row="2" height="100%" items="{{ postList }}">
+                <ListView.itemTemplate>
+                    <StackLayout class="stack-holder">
+                        <Label class="post-title" text="{{ surveyQuestion }}" textWrap="true" horizontalAlignment="left" />
+                        <Label class="event-date" text="{{ surveyOptions }}" textWrap="true" horizontalAlignment="left" />
+                        <Label class="hr2" />
+                    </StackLayout>
+                </ListView.itemTemplate>
+                <Label class="hr2" />
+            </ListView>
+            //-->
+            <StackLayout row="2" height="100%" class="m-15">
+                <GridLayout rows="auto auto auto" columns="*,*,*">
+                    <Label row="0" colSpan="3" text="How likely are you to attend our events?" width="100%" textWrap="true"></Label>
+                    <Slider row="1" colSpan="3" id="qs1" value="{{ s1 }}" minValue="0" maxValue="100"></Slider>
+                    <Label fontSize="10" row="2" id="a11" col="0" text="Not Likely" width="100%" textAlignment="left"></Label>
+                    <Label fontSize="10" row="2" id="a12" col="1" text="Depends"></Label>
+                    <Label fontSize="10" row="2" id="a13" col="2" text="Very Likely" width="100%" textAlignment="right"></Label>
+                </GridLayout>
+                <GridLayout rows="auto auto auto" columns="*,*,*" marginTop="15">
+                    <Label row="0" colSpan="3" text="How would you rate past events?" width="100%" textWrap="true"></Label>
+                    <Slider row="1" colSpan="3" id="qs2" value="{{ s2 }}" minValue="0" maxValue="100"></Slider>
+                    <Label fontSize="10" row="2" id="a21" col="0" text="Never Been" width="100%" textAlignment="left"></Label>
+                    <Label fontSize="10" row="2" id="a22" col="1" text="They Were Ok"></Label>
+                    <Label fontSize="10" row="2" id="a23" col="2" text="Loved Them!" width="100%" textAlignment="right"></Label>
+                </GridLayout>
+                <GridLayout rows="auto auto auto" columns="*,*,*" marginTop="15">
+                    <Label row="0" colSpan="3" text="How often would you attend events?" width="100%" textWrap="true"></Label>
+                    <Slider row="1" colSpan="3" id="qs3" value="{{ s3 }}" minValue="0" maxValue="100"></Slider>
+                    <Label fontSize="10" row="2" id="a31" col="0" text="Yearly/Never" width="100%" textAlignment="left"></Label>
+                    <Label fontSize="10" row="2" id="a32" col="1" text="Monthly"></Label>
+                    <Label fontSize="10" row="2" id="a33" col="2" text="Weekly" width="100%" textAlignment="right"></Label>
+                </GridLayout>
+            </StackLayout>
+            <Button row="3" class="btn btn-primary" width="100%" id="saveBtn" text="Save Answers" tap="saveAnswers"/>
+        </GridLayout>
+    </StackLayout>
+</Page>

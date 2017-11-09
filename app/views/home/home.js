@@ -70,6 +70,11 @@ function loadLatest() {
 
 }
 
+exports.goSurvey = function() {
+    var topmost = frameModule.topmost();
+    topmost.navigate("views/surveys/surveys");
+};
+
 exports.goLink = function(args) {
     var item = args.view.bindingContext;
     var navigationOptions={

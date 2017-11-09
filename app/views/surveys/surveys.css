@@ -1,0 +1,7 @@
+button, label, stack-layout {
+    horizontal-align: center;
+}
+
+.icon {
+    font-family: 'icomoon';
+}

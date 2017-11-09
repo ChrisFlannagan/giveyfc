@@ -11,8 +11,11 @@
                     </StackLayout>
                 </ListView.itemTemplate>
             </ListView>
-            <GridLayout row="2" rows="*,*">
-                <Button row="0" class="btn btn-primary" text="Events" tap="goEvent" />
+            <GridLayout row="2" rows="*,*" backgroundColor="#acdcff">
+                <GridLayout row="0" columns="*,*">
+                    <Button row="0" col="0" class="btn btn-primary" text="Events" tap="goEvent" />
+                    <Button row="0" col="1" class="btn btn-primary" text="Survey" tap="goSurvey" />
+                </GridLayout>
                 <Button row="1" class="btn btn-primary" text="Donate" tap="goRegister" />
             </GridLayout>
         </GridLayout>

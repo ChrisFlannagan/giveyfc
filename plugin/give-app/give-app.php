@@ -123,6 +123,13 @@ class Give_App_API {
 			add_option( 'add_endpoint_give_app_resetpin', true );
 			flush_rewrite_rules();
 		}
+
+		add_rewrite_endpoint( 'give-app-savesurvey', EP_ALL );
+
+		if ( ! get_option( 'add_endpoint_give_app_savesurvey' ) || isset( $_GET['reset_gapp'] ) ) {
+			add_option( 'add_endpoint_give_app_savesurvey', true );
+			flush_rewrite_rules();
+		}
 	}
 
 	public function choose_endpoint() {
@@ -157,6 +164,12 @@ class Give_App_API {
 			include __DIR__ . '/classes/resetpin.php';
 			$api_request = explode( '/', $wp_query->query_vars['give-app-resetpin'] );
 			$resetpin    = new ResetPin( $api_request );
+		}
+
+		if ( isset( $wp_query->query_vars['give-app-savesurvey'] ) ) {
+			include __DIR__ . '/classes/savesurvey.php';
+			$api_request = explode( '/', $wp_query->query_vars['give-app-savesurvey'] );
+			$savesurvey    = new SaveSurvey( $api_request );
 		}
 
 		return;
