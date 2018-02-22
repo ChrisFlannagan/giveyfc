@@ -10,7 +10,9 @@
                 <Label tap="openMap" textAlignment="center" class="address" text="{{ address }}" />
                 <Label tap="openMap" textAlignment="center" class="address" text="{{ address2 }}" />
                 <Label tap="openMap" textAlignment="center" class="open-map" text="Open Map" />
-                <Button tap="reminder" backgroundColor="{{ remcolor }}" class="btn btn-outline set-reminder" text="{{ reminder }}" />
+                <HtmlView html="{{ excerpt }}" textWrap="true" />
+                <Label tap="openEvent" textAlignment="center" class="open-map" text="View Full Event Information" />
+                <Button tap="reminder" text="{{ remindertext }}" backgroundColor="{{ remcolor }}" color="#FFF" fontColor="White" class="btn set-reminder" />
             </StackLayout>
         </GridLayout>
     </ScrollView>

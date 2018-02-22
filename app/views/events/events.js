@@ -42,7 +42,9 @@ function loadLatest() {
                 if(keyA > keyB) return 1;
                 return 0;
             });
+            console.log(posts);
             posts.forEach(function(post) {
+                console.log(post['id']);
                 var regImage = "~/imgs/register.jpg";
                 if ( appSet.getNumber( "event" + post['id'] ) == 1 ) {
                     regImage = "~/imgs/unregister.jpg";

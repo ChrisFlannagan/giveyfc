@@ -176,6 +176,10 @@ class Give_App_API {
 	}
 }
 
+add_action( 'wp_enqueue_scripts', function() {
+	//wp_enqueue_script( 'maskmoney-giveapp', plugins_url( '/jquery-maskmoney-master/dist/jquery.maskMoney.min.js', __FILE__ ), [ 'jquery' ] );
+} );
+
 add_action( 'plugins_loaded', function () {
 	if ( class_exists( 'Give_App_API' ) ) {
 		$Give_App_API = new Give_App_API();

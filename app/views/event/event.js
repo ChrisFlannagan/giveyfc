@@ -5,6 +5,9 @@ var frameModule = require("ui/frame");
 var appSettings = require("application-settings");
 var Directions = require("nativescript-directions").Directions;
 var LocalNotifications = require("nativescript-local-notifications");
+var utilityModule = require("utils/utils");
+// var webViewInterfaceModule = require('nativescript-webview-interface');
+var oWebViewInterface;
 
 var utilityModule = require("utils/utils");
 
@@ -12,6 +15,8 @@ var pageData;
 var postId;
 var startdate;
 var eventTitle;
+var remindertext = 'Set A Reminder';
+var eventLink;
 
 var mapAddress;
 
@@ -21,10 +26,9 @@ exports.loaded = function(args) {
     postId = gotData.post_id;
 
     var remcolor = 'Orange';
-    var reminder = 'Set A Reminder';
     if ( appSettings.getNumber( "event" + postId ) == 1 ) {
         remcolor = "Green";
-        reminder = 'Cancel Reminder';
+        remindertext = 'Cancel Reminder';
     }
 
     pageData = new Observable({
@@ -35,7 +39,7 @@ exports.loaded = function(args) {
         startdate: 'loading event date',
         eventimage: '',
         remcolor: remcolor,
-        reminder: reminder
+        remindertext: remindertext
     });
     page.bindingContext = pageData;
 
@@ -63,6 +67,7 @@ function loadArticle( post_id ) {
             var end = post['event_details']['end'];
             startdate = post['startdate'];
             eventTitle = post['title']['rendered'];
+            eventLink = post['link'];
 
             if ( start != '' ) {
                 start = start.split(' ')[0];
@@ -83,6 +88,9 @@ function loadArticle( post_id ) {
             pageData.set( 'startdate', start );
             pageData.set( 'enddate', end );
             pageData.set( 'eventimage', image );
+            pageData.set( 'excerpt', post['excerpt']['rendered'] );
+            pageData.set( 'remcolor', 'Orange' );
+            pageData.set( 'remindertext', remindertext );
         });
 };
 
@@ -103,10 +111,14 @@ exports.openMap = function() {
     );
 };
 
+exports.openEvent = function() {
+    utilityModule.openUrl(eventLink );
+}
+
 exports.reminder = function() {
     if ( appSettings.getNumber( "event" + postId ) == 1 ) {
         pageData.set( 'remcolor', 'Orange' );
-        pageData.set( 'reminder', 'Set A Reminder' );
+        pageData.set( 'remindertext', 'Set A Reminder' );
         appSettings.setNumber("event"+postId, 0);
         LocalNotifications.cancel(postId).then(
             function(foundAndCanceled) {
@@ -119,7 +131,7 @@ exports.reminder = function() {
         )
     } else {
         pageData.set( 'remcolor', 'Green' );
-        pageData.set( 'reminder', 'Cancel Reminder' );
+        pageData.set( 'remindertext', 'Cancel Reminder' );
         appSettings.setNumber("event"+postId, 1);
         var setdate = new Date(startdate);
         setdate.setDate(setdate.getDate() - 1);
